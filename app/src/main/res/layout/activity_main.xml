@@ -11,7 +11,8 @@
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -20,6 +21,35 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer"/>
+        app:menu="@menu/activity_main_drawer"
+        android:background="@drawable/nav_drawer_wallpaper1"
+        app:itemTextColor="#ffff"
+        app:itemIconTint="#ffff"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            >
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/signup"
+                android:text="Log Out"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
+
+
+
 
 </android.support.v4.widget.DrawerLayout>

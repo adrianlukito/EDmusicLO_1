@@ -1,6 +1,7 @@
 package edu.bluejack16_2.edmusiclo;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -58,37 +59,16 @@ public class MainActivity extends AppCompatActivity
         viewPagerAdapter.addFragment(new FilterFragment(),"Discover");
         viewPagerAdapter.addFragment(new TimeLineFragment(),"Timeline");
 
+        Typeface varela = Typeface.createFromAsset(getAssets(),"VarelaRound-Regular.ttf");
+
+
+
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.getTabAt(0).setIcon(song);
         tabLayout.getTabAt(1).setIcon(discover);
         tabLayout.getTabAt(2).setIcon(timeline);
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch(position){
-                    case 0:{
-
-                    }case 1:{
-
-                    }case 2:{
-
-                    }
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     @Override
@@ -129,18 +109,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_profile) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
