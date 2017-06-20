@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "344957468315",
+    "firebase_url": "https://edmusiclo-82f55.firebaseio.com",
+    "project_id": "edmusiclo-82f55",
+    "storage_bucket": "edmusiclo-82f55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344957468315:android:615b16a171b95374",
+        "android_client_info": {
+          "package_name": "com.example.asus.edmusiclo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344957468315-ldvi3go1g3v8ojs5u63g4mdbevs0kjtt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asus.edmusiclo",
+            "certificate_hash": "784370c39c795ad4d32f83cf863f5448d5d33c00"
+          }
+        },
+        {
+          "client_id": "344957468315-t680ktl5l5d8p8ifa1a7bumru718mti7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOp0ZoznkpTUieDawGJQVr6-3gYUV57gU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344957468315-t680ktl5l5d8p8ifa1a7bumru718mti7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344957468315:android:967edb1d180190a2",
+        "android_client_info": {
+          "package_name": "edu.bluejack16_2.edmusiclo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344957468315-khcc6q8888mht3ctjouf438ebti3g9r1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.bluejack16_2.edmusiclo",
+            "certificate_hash": "784370c39c795ad4d32f83cf863f5448d5d33c00"
+          }
+        },
+        {
+          "client_id": "344957468315-t680ktl5l5d8p8ifa1a7bumru718mti7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOp0ZoznkpTUieDawGJQVr6-3gYUV57gU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344957468315-t680ktl5l5d8p8ifa1a7bumru718mti7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -27,7 +27,6 @@ public class FilterFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_filter,container,false);
 
-        Toast.makeText(getContext(), "Discover", Toast.LENGTH_SHORT).show();
 
         return view;
     }

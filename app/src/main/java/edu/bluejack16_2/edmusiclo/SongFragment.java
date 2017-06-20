@@ -27,7 +27,6 @@ public class SongFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_song,container,false);
 
-        Toast.makeText(getContext(), "Song", Toast.LENGTH_SHORT).show();
 
         return view;
     }

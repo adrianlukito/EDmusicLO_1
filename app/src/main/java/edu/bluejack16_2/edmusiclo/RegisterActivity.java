@@ -1,14 +1,27 @@
 package edu.bluejack16_2.edmusiclo;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import edu.bluejack16_2.edmusiclo.model.UserModel;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -16,6 +29,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     Button signup;
     TextView title, login;
     Drawable lock, user, mail;
+
+    FirebaseAuth firebaseAuth;
+    ProgressDialog progressDialog;
+
+    DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         password = (EditText) findViewById(R.id.txtPassword);
         confirm = (EditText) findViewById(R.id.txtConfirm);
         signup = (Button) findViewById(R.id.btnSignUp);
+
         title = (TextView) findViewById(R.id.txtTitle);
         login = (TextView) findViewById(R.id.txtLogin);
 
@@ -52,7 +71,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         signup.setTypeface(varela);
         title.setTypeface(banger);
 
+
+        progressDialog = new ProgressDialog(this);
+
+        //firebase init
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        database = FirebaseDatabase.getInstance().getReference("Users") ;
+
         login.setOnClickListener(this);
+        signup.setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +88,44 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(view == login){
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
+        }else if(view == signup){
+            final String emailTxt = email.getText().toString();
+            final String passwordTxt = password.getText().toString();
+            String confirmTxt = confirm.getText().toString();
+            final String fullnameTxt = fullName.getText().toString();
+
+            if(emailTxt.trim().isEmpty() || passwordTxt.trim().isEmpty() || confirmTxt.trim().isEmpty() ||
+                    fullnameTxt.trim().isEmpty()){
+                Toast.makeText(this, "All field must be filled", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!confirmTxt.equals(passwordTxt)){
+                Toast.makeText(this, "Confirm and password must be same", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                progressDialog.setMessage("Register User... Please Wait");
+                progressDialog.show();
+
+
+                firebaseAuth.createUserWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            UserModel newUser = new UserModel(fullnameTxt, emailTxt, passwordTxt);
+                            database.push().setValue(newUser);
+
+                            Toast.makeText(RegisterActivity.this, "Success Register", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Unsuccess input data, try again", Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.cancel();
+                    }
+                });
+            }catch (Exception e){
+                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("Error Penting", e.toString());
+            }
         }
     }
 }

@@ -27,7 +27,6 @@ public class TimeLineFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_time_line,container,false);
 
-        Toast.makeText(getContext(), "TimeLine", Toast.LENGTH_SHORT).show();
 
         return view;
     }
