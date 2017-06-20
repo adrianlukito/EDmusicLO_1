@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.bluejack16_2.edmusiclo.LoginActivity"
+    android:background="@drawable/wallpaper10">
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:drawablePadding="20dp"
+        android:hint="Email"
+        android:textColorHint="#ffffff"
+        android:backgroundTint="#ffffff"
+        android:layout_marginBottom="22dp"
+        android:layout_above="@+id/txtPassword"
+        android:layout_alignStart="@+id/btnLogin"
+        android:textColor="#ffff"/>
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="10"
+        android:drawablePadding="20dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:singleLine="false"
+        android:textColorHint="#ffffff"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/txtEmail"
+        android:textColor="#ffff"/>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:text="Login"
+        android:textSize="20dp"
+        android:background="@drawable/signup"
+        android:textColor="#ffffff"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/txtPassword"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:text="EDmusicLO"
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="11dp"
+        android:text="Don't Have an Account?"
+        android:layout_below="@+id/btnLogin"
+        android:layout_alignStart="@+id/btnLogin"
+        android:textColor="#ffff"/>
+
+    <TextView
+        android:id="@+id/txtSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textColor="#ffff"
+        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginStart="11dp" />
+
+</RelativeLayout>

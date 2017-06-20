@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wallpaper10"
+    tools:context="edu.bluejack16_2.edmusiclo.RegisterActivity"
+    >
+
+    <EditText
+        android:id="@+id/txtFullName"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Full Name"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="45dp"
+        android:drawablePadding="20dp"
+        android:textColorHint="#ffffff"
+        android:backgroundTint="#ffffff"
+        android:layout_above="@+id/txtPassword"
+        android:layout_alignStart="@+id/btnSignUp"
+        android:layout_marginBottom="52dp"
+        android:textColor="#ffff"/>
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:drawablePadding="20dp"
+        android:hint="Email"
+        android:textColorHint="#ffffff"
+        android:backgroundTint="#ffffff"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/txtTitle"
+        android:layout_alignStart="@+id/txtFullName"
+        android:textColor="#ffff"/>
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txtEmail"
+        android:layout_below="@+id/txtEmail"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#ffffff"
+        android:ems="10"
+        android:drawablePadding="20dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:singleLine="false"
+        android:textColorHint="#ffffff"
+        android:textColor="#ffff"/>
+
+    <EditText
+        android:id="@+id/txtConfirm"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txtPassword"
+        android:layout_below="@+id/txtPassword"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:drawablePadding="20dp"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:textColorHint="#ffffff"
+        android:backgroundTint="#ffffff"
+        android:textColor="#ffff"/>
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="61dp"
+        android:text="Sign Up"
+        android:layout_below="@+id/txtConfirm"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:background="@drawable/signup"
+        android:textColor="#ffffff"
+        />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:textSize="50dp"
+        android:layout_marginBottom="50dp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:text="EDmusicLO"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/txtLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already a member? Log in here"
+        android:textColor="#ffff"
+        android:layout_below="@+id/btnSignUp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+</RelativeLayout>
