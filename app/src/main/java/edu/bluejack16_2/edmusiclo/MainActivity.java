@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity
         tabLayout.getTabAt(0).setIcon(song);
         tabLayout.getTabAt(1).setIcon(discover);
         tabLayout.getTabAt(2).setIcon(timeline);
-        //anjay
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
