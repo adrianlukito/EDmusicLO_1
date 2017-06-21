@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity
 
         Typeface varela = Typeface.createFromAsset(getAssets(),"VarelaRound-Regular.ttf");
 
-
-
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
