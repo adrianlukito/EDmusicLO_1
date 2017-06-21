@@ -1,9 +1,12 @@
 package edu.bluejack16_2.edmusiclo;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -17,12 +20,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TabLayout tabLayout;
     ViewPager viewPager;
     Drawable song, discover, timeline;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,9 @@ public class MainActivity extends AppCompatActivity
         tabLayout.getTabAt(0).setIcon(song);
         tabLayout.getTabAt(1).setIcon(discover);
         tabLayout.getTabAt(2).setIcon(timeline);
+
+
+
     }
 
     @Override

@@ -2,7 +2,9 @@ package edu.bluejack16_2.edmusiclo;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -24,13 +26,15 @@ public class SongListViewAdapter extends BaseAdapter{
 
     Context context;
 
-    TextView tvSongTitle, tvSongArtist, tvSongAlbum;
+    public TextView tvSongTitle, tvSongArtist, tvSongAlbum;
 
     public SongListViewAdapter(Context context) {
         songTitles = new ArrayList<String>();
         songArtists = new ArrayList<String>();
         songAlbums = new ArrayList<String>();
         this.context = context;
+
+
     }
 
     public void addSongList(String songTitle, String songArtist, String songAlbum){
@@ -39,10 +43,15 @@ public class SongListViewAdapter extends BaseAdapter{
         songAlbums.add(songAlbum);
     }
 
+    public SongListViewAdapter getThisItem(){
+        return this;
+    }
+
     @Override
     public int getCount() {
         return songTitles.size();
     }
+
 
     @Override
     public Object getItem(int i) {
@@ -53,6 +62,7 @@ public class SongListViewAdapter extends BaseAdapter{
     public long getItemId(int i) {
         return 0;
     }
+
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {

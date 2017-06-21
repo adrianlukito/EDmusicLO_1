@@ -3,17 +3,32 @@ package edu.bluejack16_2.edmusiclo;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.StringTokenizer;
 
 
 /**
@@ -31,9 +46,13 @@ public class SongFragment extends Fragment implements View.OnClickListener{
     public SongFragment() {
         // Required empty public constructor
     }
+    MediaPlayer mp =  new MediaPlayer();
+    MediaPlayer mediaPlayer;
+
+    Cursor musiccursor;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -53,23 +72,62 @@ public class SongFragment extends Fragment implements View.OnClickListener{
         tvBottomSongTitle.setTypeface(varela);
         tvBottomSongArtist.setTypeface(varela);
 
-        ListView songListView = (ListView) view.findViewById(R.id.songListView);
+        final ListView songListView = (ListView) view.findViewById(R.id.songListView);
         final SongListViewAdapter songListViewAdapter = new SongListViewAdapter(getContext());
 
-        songListViewAdapter.addSongList("Mr. Chu","A pink","Unknow Album");
-        songListViewAdapter.addSongList("Black Widow","Pristin","The 1st Mini Album 'HI! PRISTIN'");
-        songListViewAdapter.addSongList("FOOL","WINNER","FATE NUMBER FOR");
-        songListViewAdapter.addSongList("Knock Knock","TWICE","TWICEcoaster : LANE 2");
-        songListViewAdapter.addSongList("LAST DANCE","Big Bang","MADE");
-        songListViewAdapter.addSongList("LOVE ME RIGHT","EXO","The 2nd Album Repackage");
-        songListViewAdapter.addSongList("Not Today","BTS","YOU NEVER WALK ALONE");
-        songListViewAdapter.addSongList("Whistle","BLACKPINK","SQUARE ONE");
-        songListViewAdapter.addSongList("Now, We","Lovelyz","Lovelyz 2nd Album Repackage");
-        songListViewAdapter.addSongList("PLAYING WITH FIRE","BLACKPINK","SQUARE TWO");
-        songListViewAdapter.addSongList("B-DAY","iKON","NEW KIDS : BEGIN");
-        songListViewAdapter.addSongList("I Love You","GOT7","MAD Winter Edition");
-
         songListView.setAdapter(songListViewAdapter);
+
+        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            View lastView;
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(lastView != null) {
+                    TextView title = (TextView) lastView.findViewById(R.id.tvSongAlbum);
+                    title.setSelected(false);
+                    lastView = view;
+                }else{
+                    lastView = view;
+                }
+                TextView title = (TextView) view.findViewById(R.id.tvSongAlbum);
+                title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                title.setMarqueeRepeatLimit(-1);
+                title.setSelected(true);
+
+                musiccursor.moveToPosition(position);
+                String path = musiccursor.getString(1);
+
+                try {
+                    if(mediaPlayer !=null) {
+                        mediaPlayer.stop();
+                    }                                                                                                     
+                    mediaPlayer = new MediaPlayer();
+                    mediaPlayer.setDataSource(path);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                }catch (Exception e){
+
+                }
+            }
+        });
+        //Song
+
+        String[] proj = {MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Media.DISPLAY_NAME,
+                MediaStore.Video.Media.SIZE,
+                MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.TITLE};
+
+        String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0 AND " + MediaStore.Audio.Media.DATA + " Like '%.mp3'";
+
+        musiccursor = getActivity().managedQuery(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                proj, selection, null, MediaStore.Audio.Media.TITLE + " ASC");
+
+        while (musiccursor.moveToNext()) {
+            songListViewAdapter.addSongList(musiccursor.getString(6), musiccursor.getString(5), musiccursor.getString(4));
+        }
+
 
         return view;
     }
@@ -84,4 +142,6 @@ public class SongFragment extends Fragment implements View.OnClickListener{
             flag = 0;
         }
     }
+
+
 }
