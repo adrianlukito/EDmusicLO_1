@@ -7,12 +7,111 @@
     tools:context="edu.bluejack16_2.edmusiclo.MusicActivity"
     android:background="@drawable/wallpaper15">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="300dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/song_big2"
-        android:layout_marginBottom="163dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:id="@+id/musicTopLayout"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Song Title"
+            android:ellipsize="marquee"
+            android:textColor="#ffffff"
+            android:textSize="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/musicButtonLayout"
+
+        android:gravity="center"
+        android:layout_above="@+id/seekBar"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_prev"
+            android:id="@+id/buttonPrev"
+            android:layout_alignBaseline="@+id/buttonPlay"
+            android:layout_alignBottom="@+id/buttonPlay"
+            android:layout_alignEnd="@+id/buttonPlay"
+            android:layout_marginEnd="84dp" />
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/ic_play"
+            android:id="@+id/buttonPlay" />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_next"
+            android:id="@+id/buttonNext"
+            android:layout_alignBaseline="@+id/buttonPlay"
+            android:layout_alignBottom="@+id/buttonPlay"
+            android:layout_toEndOf="@+id/buttonPlay"
+            android:layout_marginStart="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeLayout"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="02:11"
+            android:textColor="#ffffff"
+            android:textSize="11dp"
+            android:id="@+id/tvMusicProgressTime"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="04:03"
+            android:textSize="11dp"
+            android:textColor="#ffffff"
+            android:id="@+id/tvMusicMaxTime"
+            android:gravity="right"
+            />
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:thumbTint="#ffffff"
+        android:progress="50"
+        android:progressBackgroundTint="#ffffff"
+        android:progressTint="#ffffff"
+        android:layout_above="@id/timeLayout"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/musicTopLayout"
+        android:layout_above="@id/musicButtonLayout"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:id="@+id/musicViewPager">
+
+    </android.support.v4.view.ViewPager>
+
 </RelativeLayout>
