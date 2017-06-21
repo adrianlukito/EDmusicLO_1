@@ -10,15 +10,21 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,11 +47,12 @@ public class SongFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
     MediaPlayer mp =  new MediaPlayer();
+    MediaPlayer mediaPlayer;
 
     Cursor musiccursor;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
@@ -68,20 +75,41 @@ public class SongFragment extends Fragment implements View.OnClickListener{
         final ListView songListView = (ListView) view.findViewById(R.id.songListView);
         final SongListViewAdapter songListViewAdapter = new SongListViewAdapter(getContext());
 
-        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setFocusable(true);
-                view.setFocusableInTouchMode(true);
-            }
-        });
-
-
         songListView.setAdapter(songListViewAdapter);
 
-        //Song
+        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            View lastView;
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(lastView != null) {
+                    TextView title = (TextView) lastView.findViewById(R.id.tvSongAlbum);
+                    title.setSelected(false);
+                    lastView = view;
+                }else{
+                    lastView = view;
+                }
+                TextView title = (TextView) view.findViewById(R.id.tvSongAlbum);
+                title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                title.setMarqueeRepeatLimit(-1);
+                title.setSelected(true);
 
+                musiccursor.moveToPosition(position);
+                String path = musiccursor.getString(1);
+
+                try {
+                    if(mediaPlayer !=null) {
+                        mediaPlayer.stop();
+                    }                                                                                                     
+                    mediaPlayer = new MediaPlayer();
+                    mediaPlayer.setDataSource(path);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                }catch (Exception e){
+
+                }
+            }
+        });
+        //Song
 
         String[] proj = {MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.DATA,

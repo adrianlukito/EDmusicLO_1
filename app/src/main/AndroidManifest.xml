@@ -33,10 +33,7 @@
         </activity>
         <activity android:name=".MusicActivity"></activity>
     </application>
-<<<<<<< HEAD
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-=======
-
->>>>>>> 0942816e1edbb577e1653e3229537c7ab8f44cfd
 </manifest>
