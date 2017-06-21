@@ -65,14 +65,15 @@ public class SongFragment extends Fragment implements View.OnClickListener{
         tvBottomSongTitle.setTypeface(varela);
         tvBottomSongArtist.setTypeface(varela);
 
-        ListView songListView = (ListView) view.findViewById(R.id.songListView);
+        final ListView songListView = (ListView) view.findViewById(R.id.songListView);
         final SongListViewAdapter songListViewAdapter = new SongListViewAdapter(getContext());
 
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+                view.setFocusable(true);
+                view.setFocusableInTouchMode(true);
             }
         });
 
