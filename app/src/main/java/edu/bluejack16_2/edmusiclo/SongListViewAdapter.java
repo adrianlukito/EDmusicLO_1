@@ -54,6 +54,7 @@ public class SongListViewAdapter extends BaseAdapter{
         return 0;
     }
 
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
