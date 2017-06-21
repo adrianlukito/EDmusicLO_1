@@ -92,5 +92,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp" />
-
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginGoogle_Button"
+        ></com.google.android.gms.common.SignInButton>
 </RelativeLayout>
