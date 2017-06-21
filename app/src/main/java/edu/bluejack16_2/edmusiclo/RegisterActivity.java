@@ -112,9 +112,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            UserModel newUser = new UserModel(fullnameTxt, emailTxt, passwordTxt);
-                            database.push().setValue(newUser);
-
+                            String id =  database.push().getKey();
+                            UserModel newUser = new UserModel(id, fullnameTxt, emailTxt, passwordTxt);
+                            database.child(id).setValue(newUser);
                             Toast.makeText(RegisterActivity.this, "Success Register", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(RegisterActivity.this, "Unsuccess input data, try again", Toast.LENGTH_SHORT).show();
