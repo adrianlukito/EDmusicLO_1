@@ -67,11 +67,12 @@ public class SongFragment extends Fragment implements View.OnClickListener{
 
 
     public void getPositionMusic(int position){
+        cPosition = position;
 
         tvBottomSongTitle.setText( MusicCursor.getInstance().musiccursor.getString(6));
         tvBottomSongArtist.setText( MusicCursor.getInstance().musiccursor.getString(5));
         tvBottomSongTitle.setSelected(true);
-        Cursor cursor = getActivity().managedQuery(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+        Cursor cursor = getActivity().getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
                 new String[] {MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART, MediaStore.Audio.Albums.ALBUM},
                 MediaStore.Audio.Albums._ID+ "= '"+  MusicCursor.getInstance().musiccursor.getString(8)+ "'",
                 null,
@@ -172,7 +173,7 @@ public class SongFragment extends Fragment implements View.OnClickListener{
 
             String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0 AND " + MediaStore.Audio.Media.DATA + " Like '%.mp3'";
 
-            MusicCursor.getInstance().musiccursor = getActivity().managedQuery(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+            MusicCursor.getInstance().musiccursor = getActivity().getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                     proj, selection, null, MediaStore.Audio.Media.TITLE + " ASC");
 
             while (MusicCursor.getInstance().musiccursor.moveToNext()) {
@@ -227,7 +228,6 @@ public class SongFragment extends Fragment implements View.OnClickListener{
                     intent.putExtra("position", MusicCursor.getInstance().musiccursor.getPosition());
                     intent.putExtra("duration", mediaPlayer.getCurrentPosition());
                     Toast.makeText(getContext(), mediaPlayer.getCurrentPosition()+"", Toast.LENGTH_SHORT).show();
-                    cPosition = MusicCursor.getInstance().musiccursor.getPosition();
                     startActivity(intent);
                 }
             }catch (Exception e){
