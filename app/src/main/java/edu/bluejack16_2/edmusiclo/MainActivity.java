@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity
     TabLayout tabLayout;
     ViewPager viewPager;
     Drawable song, discover, timeline;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
         viewPagerAdapter.addFragment(new SongFragment(),"Music");
         viewPagerAdapter.addFragment(new FilterFragment(),"Discover");
         viewPagerAdapter.addFragment(new TimeLineFragment(),"Timeline");
