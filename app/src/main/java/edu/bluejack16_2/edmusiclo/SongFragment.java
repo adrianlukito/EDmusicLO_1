@@ -99,7 +99,7 @@ public class SongFragment extends Fragment implements View.OnClickListener{
                 try {
                     if(mediaPlayer !=null) {
                         mediaPlayer.stop();
-                    }                                                                                                     
+                    }
                     mediaPlayer = new MediaPlayer();
                     mediaPlayer.setDataSource(path);
                     mediaPlayer.prepare();
