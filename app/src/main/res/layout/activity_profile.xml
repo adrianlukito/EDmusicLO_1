@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.bluejack16_2.edmusiclo.ProfileActivity"
+    android:background="@drawable/wallpaper15">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/toolbar_wallpaper"
+        android:id="@+id/profileToolbar"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        >
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_error"
+            android:id="@+id/backProfile"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Profile"
+            android:textSize="25dp"
+            android:textColor="#fff"
+            android:layout_marginLeft="30dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_success"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/successProfile"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutProfilePicture"
+        android:layout_below="@id/profileToolbar">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/user"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:id="@+id/imgProfilePicture"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Photo"
+            android:layout_below="@id/imgProfilePicture"
+            android:textColor="#64B5F6"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/layoutProfilePicture"
+        android:id="@+id/profileInfo">
+
+        <EditText
+            android:id="@+id/txtChangeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Full Name"
+            android:textColor="#fff"
+            android:backgroundTint="#fff"
+            android:drawableLeft="@drawable/ic_user"
+            android:drawablePadding="20dp"
+            />
+
+        <EditText
+            android:id="@+id/txtChangeEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:text="Email"
+            android:textColor="#fff"
+            android:backgroundTint="#fff"
+            android:layout_below="@id/txtChangeName"
+            android:enabled="false"
+            android:drawableLeft="@drawable/ic_mail"
+            android:drawablePadding="20dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileInfo">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/ripple"
+            android:text="Change Password"
+            android:textColor="#fff"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="150dp"
+            android:id="@+id/btnChangePassword"
+            />
+    </RelativeLayout>
+</RelativeLayout>

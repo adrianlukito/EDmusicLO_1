@@ -7,48 +7,6 @@
     tools:context="edu.bluejack16_2.edmusiclo.LoginActivity"
     android:background="@drawable/wallpaper10">
 
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:drawablePadding="20dp"
-        android:hint="Email"
-        android:textColorHint="#ffffff"
-        android:backgroundTint="#ffffff"
-        android:layout_marginBottom="22dp"
-        android:layout_above="@+id/txtPassword"
-        android:layout_alignStart="@+id/btnLogin"
-        android:textColor="#ffff"/>
-
-    <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#ffffff"
-        android:ems="10"
-        android:drawablePadding="20dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:singleLine="false"
-        android:textColorHint="#ffffff"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/txtEmail"
-        android:textColor="#ffff"/>
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:text="Login"
-        android:textSize="20dp"
-        android:background="@drawable/signup"
-        android:textColor="#ffffff"
-        android:layout_marginTop="49dp"
-        android:layout_below="@+id/txtPassword"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="match_parent"
@@ -62,16 +20,60 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp" />
 
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:drawablePadding="20dp"
+        android:hint="Email"
+        android:textColorHint="#ffffff"
+        android:backgroundTint="#ffffff"
+        android:layout_marginBottom="22dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffff"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/txtTitle"/>
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:ems="10"
+        android:drawablePadding="20dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:singleLine="false"
+        android:textColorHint="#ffffff"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffff"
+        android:layout_below="@id/txtEmail"/>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:text="Login"
+        android:textSize="20dp"
+        android:background="@drawable/ripple"
+        android:textColor="#ffffff"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/txtPassword"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="15dp"
         android:text="Don't Have an Account?"
+        android:textColor="#ffff"
         android:layout_below="@+id/btnLogin"
-        android:layout_alignStart="@+id/btnLogin"
-        android:textColor="#ffff"/>
+        android:layout_alignStart="@+id/btnLogin" />
 
     <TextView
         android:id="@+id/txtSignUp"
@@ -87,14 +89,19 @@
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/loginFacebook_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
+        android:layout_below="@id/txtSignUp"
+        android:layout_centerHorizontal="true"/>
     <com.google.android.gms.common.SignInButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:id="@+id/loginGoogle_Button"
-        ></com.google.android.gms.common.SignInButton>
+        android:layout_alignTop="@+id/loginFacebook_button"
+        android:layout_alignStart="@+id/loginFacebook_button"
+        android:layout_marginTop="45dp">
+    </com.google.android.gms.common.SignInButton>
 </RelativeLayout>
