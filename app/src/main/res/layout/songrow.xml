@@ -1,47 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#0000ff">
 
-    <TextView
-        android:id="@+id/tvSongTitle"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
+
+        <TextView
+            android:id="@+id/tvSongTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="14dp"
+            android:text="Song Title"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:id="@+id/tvSongArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tvSongTitle"
+            android:layout_below="@+id/tvSongTitle"
+            android:layout_marginTop="5dp"
+            android:text="Song Artist"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/tvSongAlbum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Song Album"
+            android:textColor="#ffffff"
+            android:layout_alignBaseline="@+id/textView5"
+            android:layout_alignBottom="@+id/textView5"
+            android:singleLine="true"
+            android:layout_toEndOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" | "
+            android:textColor="#ffffff"
+            android:layout_alignBaseline="@+id/tvSongArtist"
+            android:layout_alignBottom="@+id/tvSongArtist"
+            android:layout_toEndOf="@+id/tvSongArtist" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="14dp"
-        android:text="Song Title"
-        android:textColor="#ffffff"/>
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="32dp"
+        app:srcCompat="@drawable/playing2" />
 
-    <TextView
-        android:id="@+id/tvSongArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvSongTitle"
-        android:layout_below="@+id/tvSongTitle"
-        android:layout_marginTop="5dp"
-        android:text="Song Artist"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="10dp"/>
 
-    <TextView
-        android:id="@+id/tvSongAlbum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Song Album"
-        android:textColor="#ffffff"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
-        android:singleLine="true"
-        android:layout_toEndOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" | "
-        android:textColor="#ffffff"
-        android:layout_alignBaseline="@+id/tvSongArtist"
-        android:layout_alignBottom="@+id/tvSongArtist"
-        android:layout_toEndOf="@+id/tvSongArtist" />
 </RelativeLayout>

@@ -2,6 +2,7 @@ package edu.bluejack16_2.edmusiclo;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +43,8 @@ public class SongFragment extends Fragment implements View.OnClickListener{
 
     Drawable imgPlay, imgPause;
 
+    LinearLayout bottomPlayer;
+
     int flag = 0;
 
     public SongFragment() {
@@ -58,8 +62,11 @@ public class SongFragment extends Fragment implements View.OnClickListener{
 
         View view = inflater.inflate(R.layout.fragment_song,container,false);
 
+        bottomPlayer = (LinearLayout) view.findViewById(R.id.bottomPlayer);
         btnPlayPause = (Button) view.findViewById(R.id.btnPlayPause);
+
         btnPlayPause.setOnClickListener(this);
+        bottomPlayer.setOnClickListener(this);
 
         imgPlay = getResources().getDrawable(R.drawable.ic_play);
         imgPause = getResources().getDrawable(R.drawable.ic_pause);
@@ -104,9 +111,15 @@ public class SongFragment extends Fragment implements View.OnClickListener{
                     mediaPlayer.setDataSource(path);
                     mediaPlayer.prepare();
                     mediaPlayer.start();
+
                 }catch (Exception e){
 
                 }
+
+                tvBottomSongTitle.setText(musiccursor.getString(2));
+                tvBottomSongArtist.setText(musiccursor.getString(5));
+
+                btnPlayPause.setBackground(imgPause);
             }
         });
         //Song
@@ -134,12 +147,35 @@ public class SongFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        if(view == btnPlayPause && flag == 0){
+        if(view == btnPlayPause && !mediaPlayer.isPlaying()){
             btnPlayPause.setBackground(imgPause);
-            flag = 1;
-        }else if(view == btnPlayPause && flag == 1){
+
+            String path = musiccursor.getString(1);
+            int length = mediaPlayer.getCurrentPosition();
+            try {
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setDataSource(path);
+                mediaPlayer.prepare();
+                mediaPlayer.seekTo(length);
+                mediaPlayer.start();
+            }catch (Exception e){
+
+            }
+        }else if(view == btnPlayPause && mediaPlayer.isPlaying()){
             btnPlayPause.setBackground(imgPlay);
-            flag = 0;
+
+            String path = musiccursor.getString(1);
+
+            try {
+                if(mediaPlayer !=null) {
+                    mediaPlayer.stop();
+                }
+            }catch (Exception e){
+
+            }
+        }else if(view == bottomPlayer){
+            Intent intent = new Intent(getContext(), MusicActivity.class);
+            startActivity(intent);
         }
     }
 
