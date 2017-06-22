@@ -122,7 +122,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
             startActivity(intent);
         }else if(id == R.id.nav_friend){
-
+            Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
+            startActivity(intent);
         }else if(id == R.id.nav_floating_lyrics){
 
         }

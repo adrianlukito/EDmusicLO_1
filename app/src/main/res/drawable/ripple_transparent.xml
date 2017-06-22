@@ -8,5 +8,4 @@
             <solid android:color="#f816a463" />
         </shape>
     </item>
-    <item android:drawable="@drawable/signup"/>
 </ripple>
