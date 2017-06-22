@@ -3,26 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.bluejack16_2.edmusiclo.MusicDisplayFragment">
+    tools:context="edu.bluejack16_2.edmusiclo.MusicDisplayFragment"
+    android:gravity="center">
 
     <!-- TODO: Update blank fragment layout -->
 
-
     <ImageView
-        android:id="@+id/imgViewMusicPicture"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:id="@+id/imgViewMusic"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         app:srcCompat="@drawable/music1"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/btnMusicPlaying"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/ic_random"
-        android:layout_below="@+id/imgViewMusicPicture"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/ic_looping"
+        android:layout_below="@+id/imgViewMusic"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp" />
+        android:layout_marginTop="20dp" />
+
+
 </RelativeLayout>
