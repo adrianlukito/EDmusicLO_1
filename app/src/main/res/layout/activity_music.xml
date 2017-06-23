@@ -24,6 +24,7 @@
             android:textSize="30dp"
             android:paddingTop="10dp"
             android:paddingBottom="15dp"
+            android:id="@+id/tvMusicTitle"
             />
     </RelativeLayout>
 

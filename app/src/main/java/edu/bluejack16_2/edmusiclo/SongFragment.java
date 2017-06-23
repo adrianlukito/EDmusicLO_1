@@ -47,15 +47,15 @@ public class SongFragment extends Fragment implements View.OnClickListener{
 
     static SongListViewAdapter songListViewAdapter;
 
-    TextView tvBottomSongTitle, tvBottomSongArtist;
+    static TextView tvBottomSongTitle, tvBottomSongArtist;
     Button btnPlayPause;
 
     Drawable imgPlay, imgPause;
-    ImageView imgCover;
+    static ImageView imgCover;
 
     LinearLayout bottomPlayer;
 
-    int cPosition;
+    static int cPosition;
 
     int flag = 0;
 
@@ -77,7 +77,6 @@ public class SongFragment extends Fragment implements View.OnClickListener{
                 MediaStore.Audio.Albums._ID+ "= '"+  MusicCursor.getInstance().musiccursor.getString(8)+ "'",
                 null,
                 null);
-
         if (cursor.moveToFirst()) {
             String thisArt = cursor.getString(1);
             Bitmap bm= BitmapFactory.decodeFile(thisArt);
@@ -87,7 +86,6 @@ public class SongFragment extends Fragment implements View.OnClickListener{
                 imgCover.setImageBitmap(bm);
             }
         }
-
         btnPlayPause.setBackground(imgPause);
     }
 
