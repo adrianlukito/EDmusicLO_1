@@ -1,24 +1,35 @@
 package edu.bluejack16_2.edmusiclo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class FriendActivity extends AppCompatActivity {
+public class FriendActivity extends AppCompatActivity implements View.OnClickListener{
 
     Drawable pic1, pic2, pic3;
 
     EditText searchText;
     SearchView searchView;
 
+    Button backFriend, btnAddFriend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
+
+        backFriend = (Button) findViewById(R.id.backFriend);
+        btnAddFriend = (Button) findViewById(R.id.addFriend);
+
+        backFriend.setOnClickListener(this);
+        btnAddFriend.setOnClickListener(this);
 
         //searchView = (SearchView) findViewById(R.id.searchFriend);
 //        ((EditText) searchView.findViewById(R.id.searchFriend)).setHintTextColor(Color.WHITE);
@@ -53,5 +64,15 @@ public class FriendActivity extends AppCompatActivity {
         friendListViewAdapter.addFriendList("Wimpi Jonathan",pic2);
 
         friendListView.setAdapter(friendListViewAdapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == backFriend){
+            finish();
+        }else if(view == btnAddFriend){
+            Intent intent = new Intent(this, AddFriendActivity.class);
+            startActivity(intent);
+        }
     }
 }
