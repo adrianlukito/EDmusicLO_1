@@ -57,7 +57,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/user"
+            android:background="@drawable/ic_user_fill"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:id="@+id/imgProfilePicture"/>

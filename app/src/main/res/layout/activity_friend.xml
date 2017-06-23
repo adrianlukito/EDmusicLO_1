@@ -49,13 +49,29 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
+    <android.support.v7.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/friendToolbar"
+        android:id="@+id/searchFriend"
+        app:searchIcon="@drawable/ic_search_black"
+        app:defaultQueryHint="@string/searchFriend"
+        app:searchHintIcon="@null"
+        android:iconifiedByDefault="false"
+        app:closeIcon="@drawable/ic_error_black"
+        android:background="@drawable/border"
+        android:layout_margin="10dp"
+        >
+
+    </android.support.v7.widget.SearchView>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:id="@+id/friendListView"
         android:divider="@drawable/list_divider"
         android:dividerHeight="0.8dp"
-        android:layout_below="@id/friendToolbar"
+        android:layout_below="@id/searchFriend"
         >
     </ListView>
 
