@@ -19,6 +19,7 @@ public class FriendActivity extends AppCompatActivity implements View.OnClickLis
     SearchView searchView;
 
     Button addFriendButton;
+    Button backFriend, btnAddFriend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,11 @@ public class FriendActivity extends AppCompatActivity implements View.OnClickLis
         addFriendButton = (Button) findViewById(R.id.addFriend);
         addFriendButton.setOnClickListener(this);
 
+        backFriend = (Button) findViewById(R.id.backFriend);
+        btnAddFriend = (Button) findViewById(R.id.addFriend);
+
+        backFriend.setOnClickListener(this);
+        btnAddFriend.setOnClickListener(this);
 
         //searchView = (SearchView) findViewById(R.id.searchFriend);
 //        ((EditText) searchView.findViewById(R.id.searchFriend)).setHintTextColor(Color.WHITE);
@@ -64,12 +70,14 @@ public class FriendActivity extends AppCompatActivity implements View.OnClickLis
         //friendListView.setAdapter(friendListViewAdapter);
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v == addFriendButton){
-            Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
-            startActivity(intent);
 
+    @Override
+    public void onClick(View view) {
+        if(view == backFriend){
+            finish();
+        }else if(view == btnAddFriend){
+            Intent intent = new Intent(this, AddFriendActivity.class);
+            startActivity(intent);
         }
     }
 }

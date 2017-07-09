@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.bluejack16_2.edmusiclo.AddFriendActivity"
+    android:background="@drawable/wallpaper15">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/toolbar_wallpaper"
+        android:id="@+id/addFriendToolbar"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_back"
+            android:id="@+id/backAddFriend"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Friend"
+            android:textSize="25dp"
+            android:textColor="#fff"
+            android:layout_marginLeft="30dp"
+            />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/addFriendToolbar"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/layoutSearchAddFriend">
+
+        <android.support.v7.widget.SearchView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchAddFriend"
+            app:searchIcon="@null"
+            app:defaultQueryHint="Enter your friend's email"
+            app:searchHintIcon="@null"
+            app:iconifiedByDefault="false"
+            app:closeIcon="@drawable/ic_error_black"
+            >
+        </android.support.v7.widget.SearchView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/border_left"
+                />
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_search_black"
+                android:layout_marginLeft="7dp"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/signup"
+                android:id="@+id/addFriendPicture"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adrian Lukito Lo"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#fff"
+                android:layout_below="@id/addFriendPicture"
+                android:id="@+id/addFriendName"/>
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:background="@drawable/ripple"
+                android:text="Add Friend"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/addFriendName"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutSearchAddFriend"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:id="@+id/userNotFound"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Not Found"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

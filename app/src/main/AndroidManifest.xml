@@ -41,7 +41,8 @@
         <activity android:name=".MusicActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ChangePasswordActivity" />
-        <activity android:name=".FriendActivity"></activity>
+        <activity android:name=".FriendActivity" />
+        <activity android:name=".AddFriendActivity"></activity>
     </application>
 
 </manifest>
