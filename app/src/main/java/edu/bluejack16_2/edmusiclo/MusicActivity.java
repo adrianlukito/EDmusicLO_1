@@ -29,7 +29,7 @@ import edu.bluejack16_2.edmusiclo.state.ContextStateMusic;
 import edu.bluejack16_2.edmusiclo.state.NormalState;
 import edu.bluejack16_2.edmusiclo.state.StateMusicPlaying;
 
-public class MusicActivity extends AppCompatActivity implements View.OnClickListener, MediaPlayer.OnSeekCompleteListener{
+public class MusicActivity extends AppCompatActivity implements View.OnClickListener, MediaPlayer.OnCompletionListener{
 
     ViewPager musicViewPager;
 
@@ -57,7 +57,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             seekBar.setProgress(SongFragment.mediaPlayer.getCurrentPosition());
             tvProgressTime.setText(changerMilliscondToMinuteAndMinuteString(SongFragment.mediaPlayer.getCurrentPosition()));
         }
-        handler.postDelayed(moveSeekBar, 1000);
+        handler.postDelayed(moveSeekBar, 100);
     }
 
     Runnable moveSeekBar = new Runnable(){
@@ -94,10 +94,12 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         tvProgressTime = (TextView) findViewById(R.id.tvMusicProgressTime);
         tvMaxTime = (TextView) findViewById(R.id.tvMusicMaxTime);
 
+
+        SongFragment.mediaPlayer.setOnCompletionListener(this);
         tvProgressTime.setText(0+"");
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBar.setMax(SongFragment.mediaPlayer.getDuration());
-
+        tvMaxTime.setText(changerMilliscondToMinuteAndMinuteString(SongFragment.mediaPlayer.getDuration()));
         seekBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -106,10 +108,14 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
                         seekBar.setProgress(seekBar.getProgress());
                         tvProgressTime.setText(changerMilliscondToMinuteAndMinuteString(seekBar.getProgress()));
+
                         return false;
                     case MotionEvent.ACTION_UP:
 
                         SongFragment.mediaPlayer.seekTo(seekBar.getProgress());
+                        if(!SongFragment.mediaPlayer.isPlaying()){
+                            SongFragment.mediaPlayer.start();
+                        }
                         return false;
                 }
                 return true;
@@ -163,17 +169,21 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
             SongFragment.mediaPlayer = new MediaPlayer();
             SongFragment.mediaPlayer.setDataSource(path);
             SongFragment.mediaPlayer.prepare();
-            if(playState == true)
+            if(playState == true) {
                 SongFragment.mediaPlayer.start();
-            tvMaxTime.setText(changerMilliscondToMinuteAndMinuteString(SongFragment.mediaPlayer.getDuration()));
+                tvMaxTime.setText(changerMilliscondToMinuteAndMinuteString(SongFragment.mediaPlayer.getDuration()));
+                seekBar.setMax(SongFragment.mediaPlayer.getDuration());
+                SongFragment.mediaPlayer.setOnCompletionListener(this);
+            }
         }catch (Exception e){
             Log.d("Errror", e.toString());
         }
     }
-
     @Override
-    public void onSeekComplete(MediaPlayer mp) {
-        MusicCursor.getInstance().musiccursor.moveToPosition(ContextStateMusic.getInstance().nextMusic());
+    public void onCompletion(MediaPlayer mp) {
+
+        Toast.makeText(this, "asdfasfasdfasfd", Toast.LENGTH_SHORT).show();
+        MusicCursor.getInstance().musiccursor.moveToPosition(ContextStateMusic.getInstance().onFinish());
         playSong();
         tvProgressTime.setText(changerMilliscondToMinuteAndMinuteString(0));
     }

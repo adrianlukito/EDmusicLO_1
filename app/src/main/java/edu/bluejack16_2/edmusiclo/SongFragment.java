@@ -33,17 +33,19 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 
 import edu.bluejack16_2.edmusiclo.model.MusicCursor;
+import edu.bluejack16_2.edmusiclo.state.ContextStateMusic;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SongFragment extends Fragment implements View.OnClickListener{
+public class SongFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     static SongListViewAdapter songListViewAdapter;
 
@@ -58,6 +60,8 @@ public class SongFragment extends Fragment implements View.OnClickListener{
     static int cPosition;
 
     int flag = 0;
+
+    View lastView;
 
     public SongFragment() {
 
@@ -89,6 +93,24 @@ public class SongFragment extends Fragment implements View.OnClickListener{
         btnPlayPause.setBackground(imgPause);
     }
 
+    void playingSong(int position){
+
+        MusicCursor.getInstance().musiccursor.moveToPosition(position);
+        String path =  MusicCursor.getInstance().musiccursor.getString(1);
+        try {
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setDataSource(path);
+            mediaPlayer.prepare();
+        }catch (Exception e){
+
+        }
+        mediaPlayer.start();
+        getPositionMusic(position);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,41 +138,7 @@ public class SongFragment extends Fragment implements View.OnClickListener{
 
         final ListView songListView = (ListView) view.findViewById(R.id.songListView);
 
-
-        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            View lastView;
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(lastView != null) {
-                    TextView title = (TextView) lastView.findViewById(R.id.tvSongAlbum);
-                    title.setSelected(false);
-                    lastView = view;
-                }else{
-                    lastView = view;
-                }
-                TextView title = (TextView) view.findViewById(R.id.tvSongAlbum);
-                title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-                title.setMarqueeRepeatLimit(-1);
-                title.setSelected(true);
-
-                MusicCursor.getInstance().musiccursor.moveToPosition(position);
-                String path =  MusicCursor.getInstance().musiccursor.getString(1);
-                try {
-                    if (mediaPlayer != null) {
-                        mediaPlayer.stop();
-                    }
-                    mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setDataSource(path);
-                    mediaPlayer.prepare();
-                }catch (Exception e){
-
-                }
-                mediaPlayer.start();
-
-                getPositionMusic(position);
-
-            }
-        });
+        songListView.setOnItemClickListener(this);
 
         if(songListViewAdapter == null){
             songListViewAdapter = new SongListViewAdapter(getContext());
@@ -198,29 +186,10 @@ public class SongFragment extends Fragment implements View.OnClickListener{
 
                 if (view == btnPlayPause && !mediaPlayer.isPlaying()) {
                     btnPlayPause.setBackground(imgPause);
-
-                    String path = MusicCursor.getInstance().musiccursor.getString(1);
-                    int length = mediaPlayer.getCurrentPosition();
-                    try {
-
-                        mediaPlayer = new MediaPlayer();
-                        mediaPlayer.setDataSource(path);
-                        mediaPlayer.prepare();
-                        mediaPlayer.seekTo(length);
-                        mediaPlayer.start();
-                    } catch (Exception e) {
-
-                    }
+                    mediaPlayer.start();
                 } else if (view == btnPlayPause && mediaPlayer.isPlaying()) {
                     btnPlayPause.setBackground(imgPlay);
-                    String path = MusicCursor.getInstance().musiccursor.getString(1);
-                    try {
-                        if (mediaPlayer != null) {
-                            mediaPlayer.stop();
-                        }
-                    } catch (Exception e) {
-
-                    }
+                    mediaPlayer.pause();
                 } else if (view == bottomPlayer) {
                     Intent intent = new Intent(getContext(), MusicActivity.class);
                     intent.putExtra("position", MusicCursor.getInstance().musiccursor.getPosition());
@@ -231,5 +200,32 @@ public class SongFragment extends Fragment implements View.OnClickListener{
             }catch (Exception e){
             }
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(lastView != null) {
+            TextView title = (TextView) lastView.findViewById(R.id.tvSongAlbum);
+            title.setSelected(false);
+            lastView = view;
+        }else{
+            lastView = view;
+        }
+        TextView title = (TextView) view.findViewById(R.id.tvSongAlbum);
+        title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        title.setMarqueeRepeatLimit(-1);
+        title.setSelected(true);
+
+        playingSong(position);
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                int position = ContextStateMusic.getInstance().onFinish();
+                MusicCursor.getInstance().musiccursor.moveToPosition(position);
+                playingSong(position);
+            }
+        });
+
     }
 }

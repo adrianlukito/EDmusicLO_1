@@ -18,7 +18,7 @@ public abstract class StateMusicPlaying  {
 
     public  abstract Drawable getIcon(View view);
 
-    public abstract  void doAction();
+    public abstract  int onFinish();
 
     public abstract StateMusicPlaying next();
 

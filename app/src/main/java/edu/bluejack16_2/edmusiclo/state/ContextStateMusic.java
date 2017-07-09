@@ -42,4 +42,9 @@ public class ContextStateMusic {
         return stateMusicPlaying.prevMusic();
     }
 
+    public int onFinish(){
+        return stateMusicPlaying.onFinish();
+    }
+
+
 }

@@ -222,6 +222,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth.addAuthStateListener(authStateListener);
     }
 
+    public void selesaia(){
+
+    }
+
+
+
     @Override
     public void onClick(View view) {
         if(view == txtSignup){
