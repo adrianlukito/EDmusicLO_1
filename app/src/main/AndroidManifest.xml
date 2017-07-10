@@ -40,7 +40,14 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".FriendActivity" />
-        <activity android:name=".AddFriendActivity"></activity>
+        <activity android:name=".AddFriendActivity" />
+        <activity android:name=".ArtistDetailActivity" />
+        <activity android:name=".ArtistActivity" />
+        <activity android:name=".AlbumActivity" />
+        <activity android:name=".AlbumDetailActivity" />
+        <activity android:name=".FavoriteActivity" />
+        <activity android:name=".GenreActivity" />
+        <activity android:name=".GenreDetailActivity"></activity>
     </application>
 
 </manifest>

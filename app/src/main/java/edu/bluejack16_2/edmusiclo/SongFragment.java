@@ -167,7 +167,8 @@ public class SongFragment extends Fragment implements View.OnClickListener{
                     MediaStore.Audio.Media.ARTIST,
                     MediaStore.Audio.Media.TITLE,
                     MediaStore.Audio.Media.DURATION,
-                    MediaStore.Audio.Media.ALBUM_ID};
+                    MediaStore.Audio.Media.ALBUM_ID,
+                    MediaStore.Audio.Media.ARTIST_ID};
 
             String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0 AND " + MediaStore.Audio.Media.DATA + " Like '%.mp3'";
 

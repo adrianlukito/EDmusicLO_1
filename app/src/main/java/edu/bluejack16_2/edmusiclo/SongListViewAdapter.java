@@ -33,8 +33,6 @@ public class SongListViewAdapter extends BaseAdapter{
         songArtists = new ArrayList<String>();
         songAlbums = new ArrayList<String>();
         this.context = context;
-
-
     }
 
     public void addSongList(String songTitle, String songArtist, String songAlbum){

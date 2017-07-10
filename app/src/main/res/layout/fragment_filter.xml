@@ -2,15 +2,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.bluejack16_2.edmusiclo.FilterFragment">
+    tools:context="edu.bluejack16_2.edmusiclo.FilterFragment"
+    android:background="@drawable/wallpaper15">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="DISCOVER"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="30dp"-->
+        <!--android:textColor="#ffffff"/>-->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="DISCOVER"
         android:gravity="center"
-        android:textSize="30dp"
-        android:textColor="#ffffff"/>
+        >
 
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:text="Playlist"
+                    android:textColor="#ffff"
+                    android:textSize="25dp"
+                    android:textAllCaps="false"
+                    android:id="@+id/btnPlaylist"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/ripple_discover"
+                    />
+            </TableRow>
+            <TableRow
+                android:weightSum="2">
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="180dp"
+                    android:text="Artist"
+                    android:textColor="#ffff"
+                    android:textSize="25dp"
+                    android:textAllCaps="false"
+                    android:id="@+id/btnArtist"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/ripple_discover"
+                    android:paddingLeft="35dp"
+                    android:paddingRight="35dp"
+                    android:paddingTop="22dp"
+                    />
+
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="180dp"
+                    android:text="Album"
+                    android:textColor="#ffff"
+                    android:textSize="25dp"
+                    android:textAllCaps="false"
+                    android:id="@+id/btnAlbum"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/ripple_discover"
+                    android:paddingLeft="35dp"
+                    android:paddingRight="35dp"
+                    android:paddingTop="22dp"
+                    />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btnGenre"
+                    android:layout_width="40dp"
+                    android:layout_height="180dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_discover"
+                    android:paddingLeft="35dp"
+                    android:paddingRight="35dp"
+                    android:text="Genre"
+                    android:textAllCaps="false"
+                    android:textColor="#ffff"
+                    android:textSize="25dp"
+                    android:paddingTop="22dp"/>
+
+                <Button
+                    android:id="@+id/btnFavorite"
+                    android:layout_width="40dp"
+                    android:layout_height="180dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_discover"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:text="Favorite"
+                    android:textAllCaps="false"
+                    android:textColor="#ffff"
+                    android:textSize="25dp"
+                    android:paddingTop="22dp"/>
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
 </FrameLayout>
