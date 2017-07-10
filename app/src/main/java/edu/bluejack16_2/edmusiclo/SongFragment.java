@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -165,6 +166,15 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
             while (MusicCursor.getInstance().musiccursor.moveToNext()) {
                 songListViewAdapter.addSongList(MusicCursor.getInstance().musiccursor.getString(6),
                         MusicCursor.getInstance().musiccursor.getString(5), MusicCursor.getInstance().musiccursor.getString(4));
+
+//                Uri uri = MediaStore.Audio.Genres.getContentUriForAudioId("external", Integer.parseInt(MusicCursor.getInstance().musiccursor.getString(0)));
+//                Cursor genresCursor = getActivity().getContentResolver().query(uri, new String[] {MediaStore.Audio.Genres.NAME,
+//                        MediaStore.Audio.Genres._ID}, null, null, null);
+//
+//                while(genresCursor.moveToNext()){
+//                    Log.d("Genress", genresCursor.getString(0) + " "+ genresCursor.getString(1));
+//                }
+
             }
         }else {
             if(MusicCursor.getInstance().musiccursor.getPosition()>-1 && MusicCursor.getInstance().musiccursor.getPosition() < MusicCursor.getInstance().musiccursor.getCount()) {

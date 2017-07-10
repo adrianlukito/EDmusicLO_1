@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                                //Log.d("asdf", "asd");
                                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
 
                                     name = childSnapshot.child("fullname").getValue().toString();
@@ -233,8 +233,12 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
             startActivity(intent);
         }else if(id == R.id.nav_friend){
-            Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
-            startActivity(intent);
+            try {
+                Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
+                startActivity(intent);
+            }catch (Exception e){
+                Log.d("asdf", e.toString());
+            }
         }else if(id == R.id.nav_floating_lyrics){
 
         }
