@@ -41,9 +41,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:id="@+id/layoutSearchAddFriend"
         android:layout_below="@+id/addFriendToolbar"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/layoutSearchAddFriend">
+        android:layout_centerHorizontal="true">
 
         <android.support.v7.widget.SearchView
             android:layout_width="280dp"
@@ -79,12 +79,14 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:id="@+id/userFound"
             >
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="80dp"
@@ -104,6 +106,7 @@
                 android:id="@+id/addFriendName"/>
 
             <Button
+                android:id="@+id/addFriendButton"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
                 android:background="@drawable/ripple"

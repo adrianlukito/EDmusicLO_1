@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import edu.bluejack16_2.edmusiclo.R;
+import edu.bluejack16_2.edmusiclo.SongFragment;
 import edu.bluejack16_2.edmusiclo.model.MusicCursor;
 
 /**
@@ -39,8 +40,8 @@ public class RandomState extends StateMusicPlaying {
         }
     }
     @Override
-    public void doAction() {
-
+    public int onFinish() {
+        return nextMusic();
     }
     @Override
     public StateMusicPlaying next() {

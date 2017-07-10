@@ -14,8 +14,8 @@ import edu.bluejack16_2.edmusiclo.R;
 
 public class NormalState extends StateMusicPlaying {
     @Override
-    public void doAction() {
-
+    public int onFinish() {
+        return nextMusic();
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import edu.bluejack16_2.edmusiclo.R;
+import edu.bluejack16_2.edmusiclo.SongFragment;
 import edu.bluejack16_2.edmusiclo.model.MusicCursor;
 
 /**
@@ -22,8 +23,8 @@ public class LoopingState extends StateMusicPlaying {
     }
 
     @Override
-    public void doAction() {
-
+    public int onFinish() {
+        return MusicCursor.getInstance().musiccursor.getPosition();
     }
 
     @Override

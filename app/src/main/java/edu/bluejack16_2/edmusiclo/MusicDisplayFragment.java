@@ -33,12 +33,6 @@ public class MusicDisplayFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-//
-//        iconLooping = view.getResources().getDrawable(R.drawable.ic_looping);
-//        iconNormal = view.getResources().getDrawable(R.drawable.ic_normal);
-//        iconRandom = view.getResources().getDrawable(R.drawable.ic_random);
         view = inflater.inflate(R.layout.fragment_music_display, container, false);
         imgAlbum = (ImageView) view.findViewById(R.id.imgViewMusic);
 
