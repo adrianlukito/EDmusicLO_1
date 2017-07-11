@@ -1,8 +1,13 @@
 package edu.bluejack16_2.edmusiclo;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +17,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import edu.bluejack16_2.edmusiclo.model.MusicCursor;
 
 public class AlbumActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -54,20 +61,23 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
         snsd = getResources().getDrawable(R.drawable.the_boys);
         snsd2 = getResources().getDrawable(R.drawable.oh);
 
-        albumListViewAdapter.addAlbumList("B'Sides","Bruno Mars",bruno);
-        albumListViewAdapter.addAlbumList("Wings","BTS",bts);
-        albumListViewAdapter.addAlbumList("MADE","Big Bang",bigbang);
-        albumListViewAdapter.addAlbumList("THE AWAKENING","GFriend",gfriend);
-        albumListViewAdapter.addAlbumList("Pink Doll","Apink",apink);
-        albumListViewAdapter.addAlbumList("Just Right","GOT7",got7);
-        albumListViewAdapter.addAlbumList("Secret","WJSN",wjsn);
-        albumListViewAdapter.addAlbumList("LOL","GFriend",gfriend2);
-        albumListViewAdapter.addAlbumList("Mr.Simple","Super Junior",suju);
-        albumListViewAdapter.addAlbumList("Bonamana","Super Junior",suju2);
-        albumListViewAdapter.addAlbumList("IKON","iKON",ikon);
-        albumListViewAdapter.addAlbumList("NEW KIDS BEGIN","iKON",ikon2);
-        albumListViewAdapter.addAlbumList("The Boys","SNSD",snsd);
-        albumListViewAdapter.addAlbumList("Oh!","SNSD",snsd2);
+        String[] projectionAlbum =
+                {
+                        MediaStore.Audio.Albums._ID,
+                        MediaStore.Audio.Albums.ALBUM_ART,
+                        MediaStore.Audio.Albums.ALBUM,
+                        MediaStore.Audio.Albums.ARTIST
+                };
+
+        final Cursor albumCursor = getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                projectionAlbum, null, null, MediaStore.Audio.Albums.ALBUM +" Asc");
+
+        while(albumCursor.moveToNext()){
+            String thisArt = albumCursor.getString(1);
+            Bitmap bm= BitmapFactory.decodeFile(thisArt);
+            Drawable drawable = new BitmapDrawable(getResources(), bm);
+            albumListViewAdapter.addAlbumList(albumCursor.getString(2),albumCursor.getString(3), drawable);
+        }
 
 
         albumListView.setAdapter(albumListViewAdapter);
@@ -76,6 +86,11 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), AlbumDetailActivity.class);
+
+                albumCursor.moveToPosition(i);
+                intent.putExtra("album", albumCursor.getString(2));
+                intent.putExtra("album_id", albumCursor.getString(0));
+
                 startActivity(intent);
             }
         });

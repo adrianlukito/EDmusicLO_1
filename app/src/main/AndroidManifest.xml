@@ -26,7 +26,9 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" >
+
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -37,8 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name=".FloatingLyrics" />
 
         <activity android:name=".MusicActivity" />
         <activity android:name=".ProfileActivity" />

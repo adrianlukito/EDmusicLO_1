@@ -171,14 +171,6 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
                 songListViewAdapter.addSongList(MusicCursor.getInstance().musiccursor.getString(6),
                         MusicCursor.getInstance().musiccursor.getString(5), MusicCursor.getInstance().musiccursor.getString(4));
 
-//                Uri uri = MediaStore.Audio.Genres.getContentUriForAudioId("external", Integer.parseInt(MusicCursor.getInstance().musiccursor.getString(0)));
-//                Cursor genresCursor = getActivity().getContentResolver().query(uri, new String[] {MediaStore.Audio.Genres.NAME,
-//                        MediaStore.Audio.Genres._ID}, null, null, null);
-//
-//                while(genresCursor.moveToNext()){
-//                    Log.d("Genress", genresCursor.getString(0) + " "+ genresCursor.getString(1));
-//                }
-
             }
         }else {
             if(MusicCursor.getInstance().musiccursor.getPosition()>-1 && MusicCursor.getInstance().musiccursor.getPosition() < MusicCursor.getInstance().musiccursor.getCount()) {
