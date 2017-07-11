@@ -84,7 +84,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if(view == btnBackAlbum){
-            finish();;
+            finish();
         }
     }
 }

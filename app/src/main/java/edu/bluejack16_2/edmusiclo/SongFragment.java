@@ -109,6 +109,9 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
 
         }
         mediaPlayer.start();
+
+//        getActivity().startService(new Intent(getContext(), FloatingLyrics.class));
+
         getPositionMusic(position);
     }
 

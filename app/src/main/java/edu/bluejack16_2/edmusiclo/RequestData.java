@@ -11,13 +11,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import pl.droidsonroids.gif.GifImageView;
+
 /**
  * Created by Adrian Lukito Lo on 10/07/2017.
  */
 
 public class RequestData extends AsyncTask<String,String,JSONObject>{
-
-
 
     @Override
     protected JSONObject doInBackground(String... strings) {
@@ -50,5 +50,15 @@ public class RequestData extends AsyncTask<String,String,JSONObject>{
         }
 
         return json;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected void onPostExecute(JSONObject jsonObject) {
+        super.onPostExecute(jsonObject);
     }
 }
