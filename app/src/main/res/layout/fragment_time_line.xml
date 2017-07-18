@@ -1,16 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.bluejack16_2.edmusiclo.TimeLineFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TIMELINE"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:textColor="#ffffff"/>
+        android:layout_height="fill_parent"
+        android:id="@+id/timelineListView"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:dividerHeight="10dp"
+        >
+    </ListView>
 
-</FrameLayout>
+</RelativeLayout>

@@ -239,7 +239,9 @@ public class MainActivity extends AppCompatActivity
                 Log.d("asdf", e.toString());
             }
         }else if(id == R.id.nav_floating_lyrics){
-
+            //Intent intent = new Intent(getApplicationContext(), FloatingLyricsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

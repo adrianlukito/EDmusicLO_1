@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/headApp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_launcher"
+            android:background="#000"
+             />
+
+        <ImageButton android:id="@+id/btnClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@null"
+            android:src="@drawable/ic_error_black"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="15dp"
+            />
+
+    </RelativeLayout>
+
+    <!-- Expanded view -->
+    <RelativeLayout
+        android:id="@+id/expanded_view"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        android:background="#00f"
+        android:layout_below="@id/header"
+
+        >
+
+        <!--<TextView android:id="@+id/chatId"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:textSize="14sp"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <ListView
+            android:id="@+id/chatView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:paddingTop="10dp">-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/inputMessage"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:layout_alignParentLeft="true" />-->
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/btnSend"-->
+                <!--android:layout_width="48dp"-->
+                <!--android:layout_height="48dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:background="@null"-->
+                <!--android:src="@drawable/ic_search"-->
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+    </RelativeLayout>
+</RelativeLayout>
