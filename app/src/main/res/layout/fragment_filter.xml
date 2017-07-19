@@ -37,6 +37,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/ripple_discover"
+                    android:paddingLeft="80dp"
+                    android:paddingRight="80dp"
                     />
             </TableRow>
             <TableRow

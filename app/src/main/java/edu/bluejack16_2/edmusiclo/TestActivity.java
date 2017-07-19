@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
+import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -30,64 +31,15 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        testLyric = (TextView) findViewById(R.id.testLyric);
-
-        ParseURL url = new ParseURL();
-
-        songTitle = MusicCursor.getInstance().musiccursor.getString(6);
-        songArtist = MusicCursor.getInstance().musiccursor.getString(5);
-
-
-        String lyric="";
-
-        if(songArtist.contains("unknown")){
-            songTitleAndArtist = songTitle;
-        }else{
-            songTitleAndArtist = songTitle+" "+songArtist;
-        }
-
-        try {
-            songTitleAndArtistEncoder = URLEncoder.encode(songTitleAndArtist,"UTF-8");
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-//        getWebsite();
-
-        try {
-            lyric = url.execute("http://search.azlyrics.com/search.php?q="+songTitleAndArtistEncoder).get();
-            //lyric = url.execute("http://search.azlyrics.com/search.php?q=All+of+Me+John+Legend").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+//        OkHttpClient client = new OkHttpClient();
 //
-//        Log.d("asd",lyric);
-//        try {
-//            testLyric.setText(url.execute("http://search.azlyrics.com/search.php?q="+songTitleAndArtistEncoder).get());
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
+//        HttpConnection.Request request = new HttpConnection.Request.Builder()
+//                .url("https://code.aashari.id/api/musics/lyric/keyword?keyword=peterpan%20semua%20tentang%20kita")
+//                .get()
+//                .addHeader("authorization", "Bearer 03a316f635757be63d4e30d4d7c49a154063fa4638fe81c46563eb46420ca276")
+//                .build();
+//
+//        HttpConnection.Response response = client.newCall(request).execute();
+
     }
-
-//    void getWebsite(){
-//        StringBuilder builder = new StringBuilder();
-//        try {
-//            Document doc = Jsoup.connect("http://search.azlyrics.com/search.php?q="+songTitleAndArtistEncoder).get();
-//            Elements links = doc.select("td");
-//
-//            for (Element link : links) {
-//                builder.append("Link : ").append(link.attr("href"));
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        testLyric.setText(builder.toString());
-//    }
 }

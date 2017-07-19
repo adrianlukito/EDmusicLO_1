@@ -37,6 +37,7 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme">
+
         </activity>
         <activity android:name=".MusicActivity" />
         <activity android:name=".ProfileActivity" />
@@ -57,7 +58,8 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".TestActivity" />
+        <activity android:name=".PlaylistActivity"></activity>
     </application>
 
 </manifest>

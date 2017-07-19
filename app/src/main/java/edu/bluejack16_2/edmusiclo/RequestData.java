@@ -28,6 +28,7 @@ public class RequestData extends AsyncTask<String,String,JSONObject>{
         try {
             http = (HttpURLConnection) new URL(strings[0]).openConnection();
             http.setRequestMethod("GET");
+            http.setRequestProperty ("Authorization", "Bearer 9555816a366e0a6416deecafb52075ae1c738e04342d4e057137648c26df2927");
 
             String temp;
 
