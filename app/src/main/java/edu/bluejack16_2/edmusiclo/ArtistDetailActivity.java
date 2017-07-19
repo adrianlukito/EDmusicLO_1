@@ -49,7 +49,7 @@ public class ArtistDetailActivity extends AppCompatActivity implements View.OnCl
                     MediaStore.Audio.Media.DURATION,
                     MediaStore.Audio.Media.ALBUM_ID,
                     MediaStore.Audio.Media.ARTIST_ID};
-            Log.d("text",getIntent().getExtras().getString("artist_id"));
+            Log.d("text",getIntent().getExtras().getString("artist"));
             String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0 AND " + MediaStore.Audio.Media.DATA + " Like '%.mp3' and "
                     + MediaStore.Audio.Media.ARTIST + " = '" + getIntent().getExtras().getString("artist")+"'";
 
