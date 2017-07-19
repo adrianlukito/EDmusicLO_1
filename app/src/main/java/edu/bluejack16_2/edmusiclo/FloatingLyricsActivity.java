@@ -9,12 +9,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.concurrent.ExecutionException;
+
+import edu.bluejack16_2.edmusiclo.model.MusicCursor;
 
 public class FloatingLyricsActivity extends AppCompatActivity implements View.OnClickListener{
 
     public Context context;
 
     Button btnStart;
+
+    TextView tvMusicLyric;
+    LyricsListViewAdapter lyricListViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +37,12 @@ public class FloatingLyricsActivity extends AppCompatActivity implements View.On
 
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStart.setOnClickListener(this);
+
+        tvMusicLyric = (TextView) findViewById(R.id.tvMusicLyric);
+
+
+
+        initFloating();
     }
 
     @Override

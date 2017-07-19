@@ -7,23 +7,50 @@
     android:gravity="center">
 
     <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imgViewMusic"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:srcCompat="@drawable/music1"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/displayFavLayout"
+            android:layout_marginLeft="220dp"
+            >
 
-    <Button
-        android:id="@+id/btnMusicPlaying"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ic_looping"
-        android:layout_below="@+id/imgViewMusic"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_like"
+                android:id="@+id/btnFavMusic"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/displayMusicLayout"
+            android:layout_below="@+id/displayFavLayout">
+            <ImageView
+                android:id="@+id/imgViewMusic"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                app:srcCompat="@drawable/music1"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/btnMusicPlaying"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_looping"
+                android:layout_below="@+id/imgViewMusic"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

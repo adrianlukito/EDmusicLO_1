@@ -17,8 +17,8 @@ import android.widget.Button;
  */
 public class FilterFragment extends Fragment implements View.OnClickListener{
 
-    Drawable dArtist, dAlbum, dGenre, dFavorite;
-    Button btnArtist, btnAlbum, btnGenre, btnFavorite;
+    Drawable dArtist, dAlbum, dGenre, dFavorite, dPlaylist;
+    Button btnArtist, btnAlbum, btnGenre, btnFavorite, btnPlaylist;
 
     public FilterFragment() {
         // Required empty public constructor
@@ -36,21 +36,25 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
         dAlbum = view.getResources().getDrawable(R.drawable.ic_album);
         dGenre = view.getResources().getDrawable(R.drawable.ic_genre);
         dFavorite = view.getResources().getDrawable(R.drawable.ic_favorite);
+        dPlaylist = view.getResources().getDrawable(R.drawable.ic_list);
 
         btnArtist = (Button) view.findViewById(R.id.btnArtist);
         btnAlbum = (Button) view.findViewById(R.id.btnAlbum);
         btnGenre = (Button) view.findViewById(R.id.btnGenre);
         btnFavorite = (Button) view.findViewById(R.id.btnFavorite);
+        btnPlaylist = (Button) view.findViewById(R.id.btnPlaylist);
 
         dArtist.setBounds(0,0,120,120);
         dAlbum.setBounds(0,0,120,120);
         dGenre.setBounds(0,0,120,120);
         dFavorite.setBounds(0,0,120,120);
+        dPlaylist.setBounds(0,0,80,80);
 
         btnArtist.setCompoundDrawables(null,dArtist,null,null);
         btnAlbum.setCompoundDrawables(null,dAlbum,null,null);
         btnGenre.setCompoundDrawables(null,dGenre,null,null);
         btnFavorite.setCompoundDrawables(null,dFavorite,null,null);
+        btnPlaylist.setCompoundDrawables(dPlaylist,null,null,null);
 
         Typeface varela = Typeface.createFromAsset(getActivity().getAssets(),"VarelaRound-Regular.ttf");
 
@@ -58,11 +62,13 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
         btnAlbum.setTypeface(varela);
         btnFavorite.setTypeface(varela);
         btnGenre.setTypeface(varela);
+        btnPlaylist.setTypeface(varela);
 
         btnArtist.setOnClickListener(this);
         btnAlbum.setOnClickListener(this);
         btnFavorite.setOnClickListener(this);
         btnGenre.setOnClickListener(this);
+        btnPlaylist.setOnClickListener(this);
 
         return view;
     }
@@ -80,6 +86,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener{
             startActivity(intent);
         }else if(view == btnGenre){
             Intent intent = new Intent(getContext(), GenreActivity.class);
+            startActivity(intent);
+        }else if(view == btnPlaylist){
+            Intent intent = new Intent(getContext(), PlaylistActivity.class);
             startActivity(intent);
         }
     }
