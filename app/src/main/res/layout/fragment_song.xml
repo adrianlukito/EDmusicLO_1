@@ -67,6 +67,18 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <android.support.v7.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchSong"
+        app:searchIcon="@drawable/ic_search_black"
+        app:defaultQueryHint="@string/searchSong"
+        app:searchHintIcon="@null"
+        android:iconifiedByDefault="false"
+        app:closeIcon="@drawable/ic_error_black"
+        android:background="@drawable/border"
+        android:layout_margin="10dp"></android.support.v7.widget.SearchView>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -74,8 +86,11 @@
         android:divider="@drawable/list_divider"
         android:dividerHeight="0.8dp"
         android:layout_above="@id/bottomPlayer"
+        android:layout_below="@id/searchSong"
         >
     </ListView>
+
+
 
 
 </RelativeLayout>

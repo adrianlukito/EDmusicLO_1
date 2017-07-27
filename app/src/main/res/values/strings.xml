@@ -12,4 +12,5 @@
 
     <string name="facebook_app_id">237118520136224</string>
     <string name="searchFriend">Search Friend</string>
+    <string name="searchSong">Search Song</string>
 </resources>
