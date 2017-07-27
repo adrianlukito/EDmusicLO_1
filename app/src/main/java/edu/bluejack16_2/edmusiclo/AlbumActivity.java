@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -32,68 +33,57 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+        try {
+            btnBackAlbum = (Button) findViewById(R.id.backAlbum);
+            btnBackAlbum.setOnClickListener(this);
+            Typeface varela = Typeface.createFromAsset(getAssets(), "VarelaRound-Regular.ttf");
 
-        btnBackAlbum = (Button) findViewById(R.id.backAlbum);
-        btnBackAlbum.setOnClickListener(this);
+            tvDiscoverAlbumTitle = (TextView) findViewById(R.id.tvDiscoverAlbumTitle);
 
-        Typeface varela = Typeface.createFromAsset(getAssets(),"VarelaRound-Regular.ttf");
+            tvDiscoverAlbumTitle.setTypeface(varela);
 
-        tvDiscoverAlbumTitle = (TextView) findViewById(R.id.tvDiscoverAlbumTitle);
+            GridView albumListView = (GridView) findViewById(R.id.albumListView);
 
-        tvDiscoverAlbumTitle.setTypeface(varela);
+            final AlbumListViewAdapter albumListViewAdapter = new AlbumListViewAdapter(getApplicationContext());
 
-        GridView albumListView = (GridView) findViewById(R.id.albumListView);
+//
+//            bruno = getResources().getDrawable(R.drawable.bruno_mars);
+            String[] projectionAlbum =
+                    {
+                            MediaStore.Audio.Albums._ID,
+                            MediaStore.Audio.Albums.ALBUM_ART,
+                            MediaStore.Audio.Albums.ALBUM,
+                            MediaStore.Audio.Albums.ARTIST
+                    };
 
-        final AlbumListViewAdapter albumListViewAdapter = new AlbumListViewAdapter(getApplicationContext());
+            final Cursor albumCursor = getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                    projectionAlbum, null, null, MediaStore.Audio.Albums.ALBUM + " Asc");
 
-        bruno = getResources().getDrawable(R.drawable.bruno_mars);
-        bts = getResources().getDrawable(R.drawable.wings);
-        bigbang = getResources().getDrawable(R.drawable.bigbang);
-        gfriend = getResources().getDrawable(R.drawable.awakening);
-        apink = getResources().getDrawable(R.drawable.apink);
-        got7 = getResources().getDrawable(R.drawable.just_right);
-        gfriend2 = getResources().getDrawable(R.drawable.lol);
-        suju = getResources().getDrawable(R.drawable.mrsimple);
-        suju2 = getResources().getDrawable(R.drawable.bonamana);
-        ikon = getResources().getDrawable(R.drawable.ikon);
-        ikon2 = getResources().getDrawable(R.drawable.newkids);
-        wjsn = getResources().getDrawable(R.drawable.secret);
-        snsd = getResources().getDrawable(R.drawable.the_boys);
-        snsd2 = getResources().getDrawable(R.drawable.oh);
-
-        String[] projectionAlbum =
-                {
-                        MediaStore.Audio.Albums._ID,
-                        MediaStore.Audio.Albums.ALBUM_ART,
-                        MediaStore.Audio.Albums.ALBUM,
-                        MediaStore.Audio.Albums.ARTIST
-                };
-
-        final Cursor albumCursor = getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
-                projectionAlbum, null, null, MediaStore.Audio.Albums.ALBUM +" Asc");
-
-        while(albumCursor.moveToNext()){
-            String thisArt = albumCursor.getString(1);
-            Bitmap bm= BitmapFactory.decodeFile(thisArt);
-            Drawable drawable = new BitmapDrawable(getResources(), bm);
-            albumListViewAdapter.addAlbumList(albumCursor.getString(2),albumCursor.getString(3), drawable);
-        }
-
-
-        albumListView.setAdapter(albumListViewAdapter);
-
-        albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), AlbumDetailActivity.class);
-
-                albumCursor.moveToPosition(i);
-                intent.putExtra("album", albumCursor.getString(2));
-                intent.putExtra("album_id", albumCursor.getString(0));
-
-                startActivity(intent);
+            while (albumCursor.moveToNext()) {
+    //            String thisArt = albumCursor.getString(1);
+    //            Bitmap bm= BitmapFactory.decodeFile(thisArt);
+    //            Drawable drawable = new BitmapDrawable(getResources(), bm);
+                albumListViewAdapter.addAlbumList(albumCursor.getString(2), albumCursor.getString(3), null);
             }
-        });
+
+
+            albumListView.setAdapter(albumListViewAdapter);
+
+            albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(getApplicationContext(), AlbumDetailActivity.class);
+
+                    albumCursor.moveToPosition(i);
+                    intent.putExtra("album", albumCursor.getString(2));
+                    intent.putExtra("album_id", albumCursor.getString(0));
+
+                    startActivity(intent);
+                }
+            });
+        }catch (Exception e){
+            Log.d("testa", e.toString());
+        }
     }
 
     @Override

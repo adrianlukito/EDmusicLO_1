@@ -1,19 +1,27 @@
 package edu.bluejack16_2.edmusiclo;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.system.ErrnoException;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.bluejack16_2.edmusiclo.model.MusicCursor;
+import edu.bluejack16_2.edmusiclo.state.ContextStateMusic;
 
 public class ArtistDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -59,26 +67,43 @@ public class ArtistDetailActivity extends AppCompatActivity implements View.OnCl
             while (musicCursor.moveToNext()) {
                 artistSongListViewAdapter.addArtistSongList(musicCursor.getString(6), musicCursor.getString(4));
             }
+            artistSongListView.setAdapter(artistSongListViewAdapter);
+
+            artistSongListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    TextView title = (TextView) view.findViewById(R.id.tvSongAlbum);
+                    title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                    title.setMarqueeRepeatLimit(-1);
+                    title.setSelected(true);
+                    Log.d("testa", position+"");
+                    MusicCursor.getInstance().musiccursor = musicCursor;
+
+                    playingSong(position);
+                    ContextStateMusic.getInstance().saveFirebaseTimeline(FirebaseDatabase.getInstance().getReference("Timeline"), getBaseContext());
+
+                    SongFragment.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            try {
+                                int position = ContextStateMusic.getInstance().nextMusic();
+                                MusicCursor.getInstance().musiccursor.moveToPosition(position);
+                                playingSong(position);
+                            }catch (Exception e){
+                            }
+                        }
+                    });
+                    Intent intent = new Intent(getApplicationContext(), MusicActivity.class);
+                    intent.putExtra("position", MusicCursor.getInstance().musiccursor.getPosition());
+                    intent.putExtra("duration", SongFragment.mediaPlayer.getCurrentPosition());
+                    startActivity(intent);
+                }
+            });
         }catch (Exception e){
             Log.d("text",e.toString());
         }
-//        artistSongListViewAdapter.addArtistSongList("24K Magic (R3hab Remix)", "24K Magic (R3hab Remix)");
-//        artistSongListViewAdapter.addArtistSongList("Versace On The Floor","Versace On The Floor (Bruno Mars vs. David)");
-//        artistSongListViewAdapter.addArtistSongList("That's What I Like","That's What I Like (Alan Walker Remix)");
-//        artistSongListViewAdapter.addArtistSongList("Uptown Funk","Uptown Funk");
-//        artistSongListViewAdapter.addArtistSongList("Treasure","Summer Songs");
-//        artistSongListViewAdapter.addArtistSongList("It Will Rain","Acoustic Rain");
-//        artistSongListViewAdapter.addArtistSongList("When I Was Your Man","Now That's What I Call 30 Years");
-//        artistSongListViewAdapter.addArtistSongList("Lock Out Of Heaven","Wine & Chocolates");
-//        artistSongListViewAdapter.addArtistSongList("Just The Way You Are","Mum");
-//        artistSongListViewAdapter.addArtistSongList("Nothin' On You","R&B Anthems");
-//        artistSongListViewAdapter.addArtistSongList("The Lazy Song","The Lazy Song");
-//        artistSongListViewAdapter.addArtistSongList("Grenade","The Grenade Sessions");
-//        artistSongListViewAdapter.addArtistSongList("Talking To The Moon","Doo-Wops & Hooligans");
-//        artistSongListViewAdapter.addArtistSongList("Count On Me","Doo-Wops & Hooligans");
-
-        artistSongListView.setAdapter(artistSongListViewAdapter);
     }
+
     void playingSong(int position){
 
         MusicCursor.getInstance().musiccursor.moveToPosition(position);
@@ -94,6 +119,7 @@ public class ArtistDetailActivity extends AppCompatActivity implements View.OnCl
 
         }
         SongFragment.mediaPlayer.start();
+        Log.d("testa", path);
     }
     @Override
     public void onClick(View view) {
@@ -101,4 +127,6 @@ public class ArtistDetailActivity extends AppCompatActivity implements View.OnCl
             finish();
         }
     }
+
+
 }
