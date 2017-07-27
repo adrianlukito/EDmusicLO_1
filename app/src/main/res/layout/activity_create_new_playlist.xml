@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.bluejack16_2.edmusiclo.PlaylistActivity"
+    tools:context="edu.bluejack16_2.edmusiclo.CreateNewPlaylistActivity"
     android:background="@drawable/wallpaper15">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/toolbar_wallpaper"
-        android:id="@+id/playlistToolbar"
+        android:id="@+id/createNewPlaylistToolbar"
         android:layout_alignParentTop="true">
 
         <RelativeLayout
@@ -23,7 +23,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/ic_back"
-                android:id="@+id/backPlaylist"
+                android:id="@+id/backCreateNewPlaylist"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 />
@@ -31,52 +31,36 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Playlist"
+                android:text="New Playlist"
                 android:textSize="25dp"
                 android:textColor="#fff"
                 android:layout_marginLeft="30dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/tvPlaylistTitle"
+                android:id="@+id/tvCreateNewPlaylistTitle"
                 />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:text="Save"
+                android:background="@drawable/ripple_discover"
+                android:textColor="#fff"
+                android:textSize="12dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:id="@+id/saveNewPlaylist"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/addNewPlayListLayout"
-        android:background="@drawable/border_bottom"
-        android:layout_below="@id/playlistToolbar">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/plusIcon"
-            android:layout_marginLeft="20dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_add"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create New Playlist"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            android:layout_toEndOf="@id/plusIcon"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/tvCreateNewPlaylist"
-            />
-    </RelativeLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/playlistListView"
+        android:id="@+id/createNewPlaylistListView"
         android:divider="@drawable/list_divider"
         android:dividerHeight="0.8dp"
-        android:layout_below="@+id/addNewPlayListLayout"
+        android:layout_below="@+id/createNewPlaylistToolbar"
         >
     </ListView>
 

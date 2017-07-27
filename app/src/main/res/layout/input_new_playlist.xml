@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="150dp"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/wallpaper15"
+        >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Playlist Name"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/tvPlaylistName"
+                android:layout_marginTop="20dp"
+                android:textColor="#fff"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPlaylistName"
+                android:id="@+id/inputPlaylistNameLayout"
+                android:paddingRight="40dp"
+                android:paddingLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Please input Playlist name"
+                    android:textColor="#fff"
+                    />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="#fff"
+                    android:layout_marginTop="30dp"
+                    android:textSize="15dp"
+                    android:background="@drawable/border_edittext_playlist"
+                    android:focusableInTouchMode="true"
+                    />
+            </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

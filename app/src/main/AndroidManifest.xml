@@ -26,12 +26,18 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity android:name=".RegisterActivity" />
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> e062cd9e6e3e71758cbfca92c8286a57a21233b2
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -58,7 +64,8 @@
             android:exported="false" />
 
         <activity android:name=".TestActivity" />
-        <activity android:name=".PlaylistActivity"></activity>
+        <activity android:name=".PlaylistActivity" />
+        <activity android:name=".CreateNewPlaylistActivity"></activity>
     </application>
 
 </manifest>
