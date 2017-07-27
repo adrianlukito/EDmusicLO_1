@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class GenreListViewAdapter extends BaseAdapter{
 
     ArrayList<String> genres;
+    ArrayList<String> genresID;
 
     Context context;
 
@@ -28,11 +29,13 @@ public class GenreListViewAdapter extends BaseAdapter{
 
     public GenreListViewAdapter(Context context) {
         genres = new ArrayList<String>();
+        genresID = new ArrayList<String>();
         this.context = context;
     }
 
-    public void addGenre(String genre){
+    public void addGenre(String genre,String id){
         genres.add(genre);
+        genresID.add(id);
     }
 
     @Override
@@ -60,6 +63,7 @@ public class GenreListViewAdapter extends BaseAdapter{
         Typeface varela = Typeface.createFromAsset(context.getAssets(),"VarelaRound-Regular.ttf");
 
         final Button btnGenres = (Button) view.findViewById(R.id.btnGenres);
+        final String text = genresID.get(i);
         btnGenres.setText(genres.get(i));
         btnGenres.setTypeface(varela);
         btnGenres.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +72,7 @@ public class GenreListViewAdapter extends BaseAdapter{
                 Intent intent = new Intent(context.getApplicationContext(), GenreDetailActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("genreName",btnGenres.getText());
+                intent.putExtra("genreID", text);
                 context.startActivity(intent);
             }
         });

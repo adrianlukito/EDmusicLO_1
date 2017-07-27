@@ -78,22 +78,22 @@ public class ArtistSongListViewAdapter extends BaseAdapter{
         LayoutInflater inflater = LayoutInflater.from(context);
 
         Typeface varela = Typeface.createFromAsset(context.getAssets(),"VarelaRound-Regular.ttf");
-        if(i == 0){
-            if(view == null){
-                view = inflater.inflate(R.layout.artist_picture,viewGroup,false);
-            }
-        }else{
+//        if(i == 0){
+//            if(view == null){
+//                view = inflater.inflate(R.layout.artist_picture,viewGroup,false);
+//            }
+//        }else{
             view = inflater.inflate(R.layout.song_artist_row, viewGroup, false);
 
             tvSongTitle = (TextView) view.findViewById(R.id.tvSongTitle);
             tvSongAlbum = (TextView) view.findViewById(R.id.tvSongAlbum);
 
-            tvSongTitle.setText(songTitles.get(i-1));
-            tvSongAlbum.setText(songAlbums.get(i-1));
+            tvSongTitle.setText(songTitles.get(i));
+            tvSongAlbum.setText(songAlbums.get(i));
 
             tvSongTitle.setTypeface(varela);
             tvSongAlbum.setTypeface(varela);
-        }
+       // }
 
         return view;
     }

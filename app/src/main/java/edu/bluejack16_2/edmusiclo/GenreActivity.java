@@ -74,17 +74,18 @@ public class GenreActivity extends AppCompatActivity implements View.OnClickList
 //            }
             Cursor musiCursor = MusicCursor.getInstance().musiccursor;
             musiCursor.moveToFirst();
-            do {
+            Cursor genreCursor;
+            //do {
 //                Uri uri = MediaStore.Audio.Genres.getContentUriForAudioId("external", Integer.parseInt(musiCursor.getString(0)));
 //
 //                condi = MediaStore.Audio.Genres.NAME + " = " + condition;
-//                genreCursor = activity.getContentResolver().query(uri, new String[]{MediaStore.Audio.Genres.NAME,
-//                        MediaStore.Audio.Genres._ID}, condi, null, MediaStore.Audio.Genres.NAME + " ASC");
-//
-//                while(genreCursor.moveToNext()) {
-//                    genreString.add(genreCursor.getString(genreCursor.getPosition()));
-//                }
-            }while (true);
+                genreCursor = getContentResolver().query(MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Audio.Genres.NAME,
+                        MediaStore.Audio.Genres._ID}, null, null, MediaStore.Audio.Genres.NAME + " ASC");
+
+                while(genreCursor.moveToNext()) {
+                    genreListViewAdapter.addGenre(genreCursor.getString(0), genreCursor.getString(1));
+                }
+            //}while (true);
         }catch (Exception e){
             Log.d("text", toString());
         }
