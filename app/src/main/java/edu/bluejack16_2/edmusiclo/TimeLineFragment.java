@@ -4,11 +4,20 @@ package edu.bluejack16_2.edmusiclo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import edu.bluejack16_2.edmusiclo.model.Session;
 
 
 /**
@@ -23,6 +32,10 @@ public class TimeLineFragment extends Fragment {
     }
 
 
+    Session session;
+
+    DatabaseReference databaseReference;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,7 +43,7 @@ public class TimeLineFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_time_line,container,false);
 
-        ListView timeLineListView = (ListView) view.findViewById(R.id.timelineListView);
+        final ListView timeLineListView = (ListView) view.findViewById(R.id.timelineListView);
 
         final TimeLineListViewAdapter timeLineListViewAdapter = new TimeLineListViewAdapter(getContext());
 
@@ -49,19 +62,54 @@ public class TimeLineFragment extends Fragment {
 //        snsd = getResources().getDrawable(R.drawable.the_boys);
 //        snsd2 = getResources().getDrawable(R.drawable.oh);
 
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
-        timeLineListViewAdapter.addTimeLineList(bruno,"Adrian Lukito Lo","Now Listening to Uptown Funk");
+        session = new Session(getContext());
 
-        timeLineListView.setAdapter(timeLineListViewAdapter);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Follow");
 
+        databaseReference.orderByChild("followed").equalTo(session.getUser().getEmail()).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        try {
+                            for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                String thisEmail = childSnapshot.child("following").getValue().toString();
+                                Log.d("errr", thisEmail);
+                                //if (thisEmail.equals(session.getUser().getEmail())) {
+                                FirebaseDatabase.getInstance().getReference().child("Timeline").orderByChild("user")
+                                        .equalTo(thisEmail).addListenerForSingleValueEvent(
+                                        new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                                    String email = childSnapshot.child("user").getValue().toString();
+                                                    String fullname = childSnapshot.child("songName").getValue().toString();
+                                                    String id = childSnapshot.child("id").getValue().toString();
+                                                    timeLineListViewAdapter.addTimeLineList(bruno,email,fullname, id);
+                                                }
+
+                                                timeLineListView.setAdapter(timeLineListViewAdapter);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        }
+                                );
+                                //}
+                            }
+                            Log.d("errrFinish", "asf");
+                        }catch (Exception e){
+                            Log.d("Errror", e.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
         return view;
     }
 

@@ -42,55 +42,57 @@ public class MusicLyricFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_music_lyric, container, false);
-
-        tvMusicLyric = (TextView) view.findViewById(R.id.tvMusicLyric);
-
-        RequestData rd = new RequestData();
-
-        JSONArray json = null;
-        String lyric="";
-
-        String songTitle = MusicCursor.getInstance().musiccursor.getString(6);
-        String songArtist = MusicCursor.getInstance().musiccursor.getString(5);
-
-        String songTitleAndArtist = "";
-        String songTitleAndArtistEncoder = "";
-
-        if(songArtist.contains("unknown")){
-            songTitleAndArtist = songTitle;
-        }else{
-            songTitleAndArtist = songTitle+" "+songArtist;
-        }
-
-        try {
-            songTitleAndArtistEncoder = URLEncoder.encode(songTitleAndArtist,"UTF-8").replace("+","%20");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            json = rd.execute("https://code.aashari.id/api/musics/lyric/keyword?keyword="+songTitleAndArtistEncoder).get().getJSONArray("lyric");
-
-            for(int i=0;i<json.length();i++){
-                lyric = lyric+"\n"+json.getString(i);
-                //Log.d("lyric",json.getString(i));
-            }
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        ListView lyricListView = (ListView) view.findViewById(R.id.lyricsListView);
-
-        lyricListViewAdapter = new LyricsListViewAdapter(getContext());
-        lyricListViewAdapter.addLyric(lyric);
-
-        lyricListView.setAdapter(lyricListViewAdapter);
-
+//        try {
+//            tvMusicLyric = (TextView) view.findViewById(R.id.tvMusicLyric);
+//
+//            RequestData rd = new RequestData();
+//
+//            JSONArray json = null;
+//            String lyric = "";
+//
+//            String songTitle = MusicCursor.getInstance().musiccursor.getString(6);
+//            String songArtist = MusicCursor.getInstance().musiccursor.getString(5);
+//
+//            String songTitleAndArtist = "";
+//            String songTitleAndArtistEncoder = "";
+//
+//            if (songArtist.contains("unknown")) {
+//                songTitleAndArtist = songTitle;
+//            } else {
+//                songTitleAndArtist = songTitle + " " + songArtist;
+//            }
+//
+//            try {
+//                songTitleAndArtistEncoder = URLEncoder.encode(songTitleAndArtist, "UTF-8").replace("+", "%20");
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+//
+//            try {
+//                json = rd.execute("https://code.aashari.id/api/musics/lyric/keyword?keyword=" + songTitleAndArtistEncoder).get().getJSONArray("lyric");
+//
+//                for (int i = 0; i < json.length(); i++) {
+//                    lyric = lyric + "\n" + json.getString(i);
+//                    //Log.d("lyric",json.getString(i));
+//                }
+//
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            ListView lyricListView = (ListView) view.findViewById(R.id.lyricsListView);
+//
+//            lyricListViewAdapter = new LyricsListViewAdapter(getContext());
+//            lyricListViewAdapter.addLyric(lyric);
+//
+//            lyricListView.setAdapter(lyricListViewAdapter);
+//        }catch (Exception e){
+//            Log.d("testa", e.toString());
+//        }
         return view;
     }
 

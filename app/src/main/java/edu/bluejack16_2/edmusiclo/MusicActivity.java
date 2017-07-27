@@ -21,6 +21,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
@@ -69,59 +71,63 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     public void init(){
         musicViewPager = (ViewPager) findViewById(R.id.musicViewPager);
+        try {
+            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            viewPagerAdapter.addFragment(new MusicDisplayFragment(), "Music Display");
+            viewPagerAdapter.addFragment(new MusicLyricFragment(), "Music Lyrics");
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new MusicDisplayFragment(),"Music Display");
-        viewPagerAdapter.addFragment(new MusicLyricFragment(),"Music Lyrics");
+            Typeface varela = Typeface.createFromAsset(getAssets(), "VarelaRound-Regular.ttf");
 
-        Typeface varela = Typeface.createFromAsset(getAssets(),"VarelaRound-Regular.ttf");
+            imgPlay = getResources().getDrawable(R.drawable.ic_play);
+            imgPause = getResources().getDrawable(R.drawable.ic_pause);
 
-        imgPlay = getResources().getDrawable(R.drawable.ic_play);
-        imgPause = getResources().getDrawable(R.drawable.ic_pause);
+            btnPlayPause = (Button) findViewById(R.id.buttonPlay);
+            btnPlayPause.setOnClickListener(this);
+            btnPlayPause.setBackground(imgPause);
+            btnPrev = (Button) findViewById(R.id.buttonPrev);
+            btnPrev.setOnClickListener(this);
+            btnNext = (Button) findViewById(R.id.buttonNext);
+            btnNext.setOnClickListener(this);
 
-        btnPlayPause = (Button) findViewById(R.id.buttonPlay);
-        btnPlayPause.setOnClickListener(this);
-        btnPlayPause.setBackground(imgPause);
-        btnPrev = (Button) findViewById(R.id.buttonPrev);
-        btnPrev.setOnClickListener(this);
-        btnNext = (Button) findViewById(R.id.buttonNext);
-        btnNext.setOnClickListener(this);
+            musicViewPager.setAdapter(viewPagerAdapter);
 
-        musicViewPager.setAdapter(viewPagerAdapter);
+            tvSongTitle = (TextView) findViewById(R.id.tvMusicTitle);
+            tvSongTitle.setText(MusicCursor.getInstance().musiccursor.getString(6));
+            tvProgressTime = (TextView) findViewById(R.id.tvMusicProgressTime);
+            tvMaxTime = (TextView) findViewById(R.id.tvMusicMaxTime);
 
-        tvSongTitle = (TextView) findViewById(R.id.tvMusicTitle);
-        tvSongTitle.setText(MusicCursor.getInstance().musiccursor.getString(6));
-        tvProgressTime = (TextView) findViewById(R.id.tvMusicProgressTime);
-        tvMaxTime = (TextView) findViewById(R.id.tvMusicMaxTime);
+            SongFragment.mediaPlayer.setOnCompletionListener(this);
+            tvProgressTime.setText(0 + "");
+            seekBar = (SeekBar) findViewById(R.id.seekBar);
+            seekBar.setMax(SongFragment.mediaPlayer.getDuration());
+            tvMaxTime.setText(changerMilliscondToMinuteAndMinuteString(SongFragment.mediaPlayer.getDuration()));
 
 
-        SongFragment.mediaPlayer.setOnCompletionListener(this);
-        tvProgressTime.setText(0+"");
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
-        seekBar.setMax(SongFragment.mediaPlayer.getDuration());
-        tvMaxTime.setText(changerMilliscondToMinuteAndMinuteString(SongFragment.mediaPlayer.getDuration()));
-        seekBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_MOVE :
+            seekBar.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_MOVE:
 
-                        seekBar.setProgress(seekBar.getProgress());
-                        tvProgressTime.setText(changerMilliscondToMinuteAndMinuteString(seekBar.getProgress()));
+                            seekBar.setProgress(seekBar.getProgress());
+                            tvProgressTime.setText(changerMilliscondToMinuteAndMinuteString(seekBar.getProgress()));
 
-                        return false;
-                    case MotionEvent.ACTION_UP:
+                            return false;
+                        case MotionEvent.ACTION_UP:
 
-                        SongFragment.mediaPlayer.seekTo(seekBar.getProgress());
-                        if(!SongFragment.mediaPlayer.isPlaying()){
-                            SongFragment.mediaPlayer.start();
-                        }
-                        return false;
+                            SongFragment.mediaPlayer.seekTo(seekBar.getProgress());
+                            if (!SongFragment.mediaPlayer.isPlaying()) {
+                                SongFragment.mediaPlayer.start();
+                            }
+                            return false;
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
+            });
 
+        }catch (Exception e){
+            Log.d("testa", "asd : " + e.toString());
+        }
     }
 
     @Override
@@ -147,11 +153,17 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
                 }catch (Exception e){}
             }
         }else if(view == btnNext){
-            MusicCursor.getInstance().musiccursor.moveToPosition(ContextStateMusic.getInstance().nextMusic());
+            int position = ContextStateMusic.getInstance().nextMusic();
+            ContextStateMusic.getInstance().play(position);
+            ContextStateMusic.getInstance().saveFirebaseTimeline(FirebaseDatabase.getInstance().getReference("Timeline"),
+                    getBaseContext());
             playSong();
             tvProgressTime.setText(changerMilliscondToMinuteAndMinuteString(0));
         }else if(view == btnPrev){
-            MusicCursor.getInstance().musiccursor.moveToPosition(ContextStateMusic.getInstance().prevMusic());
+            int position = ContextStateMusic.getInstance().prevMusic();
+            ContextStateMusic.getInstance().play(position);
+            ContextStateMusic.getInstance().saveFirebaseTimeline(FirebaseDatabase.getInstance().getReference("Timeline"),
+                    getBaseContext());
             playSong();
             tvProgressTime.setText(changerMilliscondToMinuteAndMinuteString(0));
         }
@@ -159,17 +171,9 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private void playSong(){
         try {
-            String path =  MusicCursor.getInstance().musiccursor.getString(1);
-
-            tvSongTitle.setText(MusicCursor.getInstance().musiccursor.getString(6));
-            if (SongFragment.mediaPlayer != null) {
-                SongFragment.mediaPlayer.release();
-            }
-
-            SongFragment.mediaPlayer = new MediaPlayer();
-            SongFragment.mediaPlayer.setDataSource(path);
-            SongFragment.mediaPlayer.prepare();
             if(playState == true) {
+
+                tvSongTitle.setText(MusicCursor.getInstance().musiccursor.getString(6));
                 SongFragment.mediaPlayer.start();
                 tvMaxTime.setText(changerMilliscondToMinuteAndMinuteString(SongFragment.mediaPlayer.getDuration()));
                 seekBar.setMax(SongFragment.mediaPlayer.getDuration());
@@ -181,9 +185,11 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onCompletion(MediaPlayer mp) {
-
-        Toast.makeText(this, "asdfasfasdfasfd", Toast.LENGTH_SHORT).show();
         MusicCursor.getInstance().musiccursor.moveToPosition(ContextStateMusic.getInstance().onFinish());
+        int position = ContextStateMusic.getInstance().nextMusic();
+        ContextStateMusic.getInstance().play(position);
+        ContextStateMusic.getInstance().saveFirebaseTimeline(FirebaseDatabase.getInstance().getReference("Timeline"),
+                getBaseContext());
         playSong();
         tvProgressTime.setText(changerMilliscondToMinuteAndMinuteString(0));
     }

@@ -31,6 +31,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.w3c.dom.Text;
 
 import java.io.File;
@@ -40,6 +43,8 @@ import java.util.Comparator;
 import java.util.StringTokenizer;
 
 import edu.bluejack16_2.edmusiclo.model.MusicCursor;
+import edu.bluejack16_2.edmusiclo.model.Session;
+import edu.bluejack16_2.edmusiclo.model.Timeline;
 import edu.bluejack16_2.edmusiclo.state.ContextStateMusic;
 
 
@@ -48,9 +53,9 @@ import edu.bluejack16_2.edmusiclo.state.ContextStateMusic;
  */
 public class SongFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
 
-    static SongListViewAdapter songListViewAdapter;
+    public static SongListViewAdapter songListViewAdapter;
 
-    static TextView tvBottomSongTitle, tvBottomSongArtist;
+    public static TextView tvBottomSongTitle, tvBottomSongArtist;
     Button btnPlayPause;
 
     Drawable imgPlay, imgPause;
@@ -64,11 +69,13 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
 
     View lastView;
 
+    DatabaseReference databaseReference;
+
     public SongFragment() {
 
     }
 
-    static MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
 
 
     public void getPositionMusic(int position){
@@ -94,10 +101,30 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
         btnPlayPause.setBackground(imgPause);
     }
 
+    public void saveFirebaseTimeline(){
+        Session session = new Session(getContext());
+
+        Timeline timeline = new Timeline();
+
+        timeline.setUser(session.getUser().getEmail());
+
+        timeline.setSongName(MusicCursor.getInstance().musiccursor.getString(6));
+        String id = databaseReference.push().getKey();
+
+        timeline.setId(id);
+        timeline.addLike("tedy@gmail.com");
+        databaseReference.child(id).setValue(timeline);
+    }
+
     void playingSong(int position){
 
         MusicCursor.getInstance().musiccursor.moveToPosition(position);
         String path =  MusicCursor.getInstance().musiccursor.getString(1);
+        try {
+            saveFirebaseTimeline();
+        }catch (Exception e){
+            Log.d("testa", e.toString());
+        }
         try {
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
@@ -119,6 +146,9 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Timeline");
+
         View view = inflater.inflate(R.layout.fragment_song,container,false);
 
         bottomPlayer = (LinearLayout) view.findViewById(R.id.bottomPlayer);
@@ -185,11 +215,9 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
     public void onClick(View view) {
         if(mediaPlayer != null) {
             try {
-
                 if(MusicCursor.getInstance().musiccursor.getPosition() <0){
                     MusicCursor.getInstance().musiccursor.moveToPosition(cPosition);
                 }
-
                 if (view == btnPlayPause && !mediaPlayer.isPlaying()) {
                     btnPlayPause.setBackground(imgPause);
                     mediaPlayer.start();

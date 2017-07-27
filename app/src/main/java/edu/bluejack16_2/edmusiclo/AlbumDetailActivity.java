@@ -2,6 +2,7 @@ package edu.bluejack16_2.edmusiclo;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import edu.bluejack16_2.edmusiclo.model.MusicCursor;
 import edu.bluejack16_2.edmusiclo.state.ContextStateMusic;
@@ -45,7 +48,7 @@ public class AlbumDetailActivity extends AppCompatActivity implements View.OnCli
         final SongListViewAdapter songListViewAdapter = new SongListViewAdapter(getApplicationContext());
 
         String[] proj = {MediaStore.Audio.Media._ID,
-                MediaStore.Audio.Media.DATA,
+           MediaStore.Audio.Media.DATA,
                 MediaStore.Audio.Media.DISPLAY_NAME,
                 MediaStore.Video.Media.SIZE,
                 MediaStore.Audio.Media.ALBUM,
@@ -55,11 +58,11 @@ public class AlbumDetailActivity extends AppCompatActivity implements View.OnCli
                 MediaStore.Audio.Media.ALBUM_ID,
                 MediaStore.Audio.Media.ARTIST_ID};
 
-        String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0 AND " + MediaStore.Audio.Media.DATA + " Like '%.mp3' and "
-                + MediaStore.Audio.Media.ALBUM_ID +" = " + getIntent().getExtras().getString("album_id");
+    String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0 AND " + MediaStore.Audio.Media.DATA + " Like '%.mp3' and "
+            + MediaStore.Audio.Media.ALBUM_ID +" = " + getIntent().getExtras().getString("album_id");
 
-       final Cursor musicCursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                proj, selection, null, MediaStore.Audio.Media.TITLE + " ASC");
+    final Cursor musicCursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+            proj, selection, null, MediaStore.Audio.Media.TITLE + " ASC");
 
         while (musicCursor.moveToNext()) {
             songListViewAdapter.addSongList(musicCursor.getString(6),
@@ -88,6 +91,10 @@ public class AlbumDetailActivity extends AppCompatActivity implements View.OnCli
                         playingSong(position);
                     }
                 });
+
+                ContextStateMusic.getInstance().saveFirebaseTimeline(FirebaseDatabase.getInstance().getReference("Timeline"), getBaseContext());
+
+
                 Intent intent = new Intent(AlbumDetailActivity.this, MusicActivity.class);
                 intent.putExtra("position", MusicCursor.getInstance().musiccursor.getPosition());
                 intent.putExtra("duration", SongFragment.mediaPlayer.getCurrentPosition());
@@ -111,6 +118,9 @@ public class AlbumDetailActivity extends AppCompatActivity implements View.OnCli
 
         }
         SongFragment.mediaPlayer.start();
+
+        ContextStateMusic.getInstance().saveFirebaseTimeline(FirebaseDatabase.getInstance().getReference("Timeline"), getBaseContext());
+
     }
     @Override
     public void onClick(View view) {
