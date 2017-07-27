@@ -2,6 +2,7 @@ package edu.bluejack16_2.edmusiclo;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.icu.text.LocaleDisplayNames;
@@ -39,7 +40,7 @@ public class TimeLineListViewAdapter extends BaseAdapter implements View.OnClick
     ArrayList<String> timeLineID;
 
     TextView tvTimeLineProfileName, tvTimeLineContent;
-    Button likeButton;
+    Button likeButton, commentButton;
 
     Context context;
 
@@ -99,6 +100,15 @@ public class TimeLineListViewAdapter extends BaseAdapter implements View.OnClick
 
         index = i;
 
+        commentButton = (Button) view.findViewById(R.id.btnComment);
+        commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), CommentActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+
         likeButton = (Button) view.findViewById(R.id.btnLike);
         likeButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -145,6 +155,8 @@ public class TimeLineListViewAdapter extends BaseAdapter implements View.OnClick
         if(v == likeButton) {
             Log.d("testa", index+"");
             Toast.makeText(context, index+"", Toast.LENGTH_SHORT).show();
+        }else if(v == commentButton){
+
         }
     }
 }
