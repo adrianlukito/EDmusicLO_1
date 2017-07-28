@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by Adrian Lukito Lo on 19/07/2017.
@@ -23,6 +24,8 @@ public class CreateNewPlaylistAdapter extends BaseAdapter implements View.OnClic
     ArrayList<String> songArtists;
     ArrayList<String> songAlbums;
     ArrayList<Boolean> isChecked;
+
+
 
     Button playlistCheck;
 
@@ -106,6 +109,10 @@ public class CreateNewPlaylistAdapter extends BaseAdapter implements View.OnClic
         playlistCheck.setBackground(isChecked.get(index) ? check : uncheck);
 
         return view;
+    }
+
+    public ArrayList<Boolean> getPlayListCheck(){
+        return isChecked;
     }
 
     @Override

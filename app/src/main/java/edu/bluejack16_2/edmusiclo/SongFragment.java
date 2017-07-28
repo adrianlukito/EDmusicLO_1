@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,6 +69,8 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
     int flag = 0;
 
     View lastView;
+
+    SearchView searchView;
 
     DatabaseReference databaseReference;
 
@@ -179,6 +182,24 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
         }
         songListView.setAdapter(songListViewAdapter);
 
+        searchView = (SearchView) view.findViewById(R.id.searchSong);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("testa", newText);
+
+                songListViewAdapter.getFilter().filter(newText);
+
+                return false;
+            }
+        });
+
         //Song
         if(MusicCursor.getInstance().musiccursor == null) {
             String[] proj = {MediaStore.Audio.Media._ID,
@@ -239,19 +260,23 @@ public class SongFragment extends Fragment implements View.OnClickListener, Adap
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(lastView != null) {
-            TextView title = (TextView) lastView.findViewById(R.id.tvSongAlbum);
-            title.setSelected(false);
+            TextView album = (TextView) lastView.findViewById(R.id.tvSongAlbum);
+            album.setSelected(false);
+            TextView title = (TextView) view.findViewById(R.id.tvSongTitle);
             lastView = view;
         }else{
             lastView = view;
         }
-        TextView title = (TextView) view.findViewById(R.id.tvSongAlbum);
-        title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        title.setMarqueeRepeatLimit(-1);
-        title.setSelected(true);
-
-        playingSong(position);
-
+        TextView album = (TextView) view.findViewById(R.id.tvSongAlbum);
+        TextView title = (TextView) view.findViewById(R.id.tvSongTitle);
+        album.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        album.setMarqueeRepeatLimit(-1);
+        album.setSelected(true);
+        try {
+            playingSong(songListViewAdapter.getIndex(title.getText().toString()));
+        }catch (Exception e){
+            Log.d("testa", e.toString());
+        }
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {

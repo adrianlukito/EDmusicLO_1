@@ -3,26 +3,37 @@ package edu.bluejack16_2.edmusiclo;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by Adrian Lukito Lo on 21/06/2017.
  */
 
-public class SongListViewAdapter extends BaseAdapter{
+public class SongListViewAdapter extends BaseAdapter implements Filterable{
 
     ArrayList<String> songTitles;
+
+    ArrayList<String> cloneSongTitles;
     ArrayList<String> songArtists;
     ArrayList<String> songAlbums;
+
+    ArrayList<Integer> originalPosition;
+    int count = 0;
 
     Context context;
 
@@ -32,6 +43,8 @@ public class SongListViewAdapter extends BaseAdapter{
         songTitles = new ArrayList<String>();
         songArtists = new ArrayList<String>();
         songAlbums = new ArrayList<String>();
+        cloneSongTitles = new ArrayList<String>();
+        originalPosition = new ArrayList<Integer>();
         this.context = context;
     }
 
@@ -39,6 +52,9 @@ public class SongListViewAdapter extends BaseAdapter{
         songTitles.add(songTitle);
         songArtists.add(songArtist);
         songAlbums.add(songAlbum);
+        cloneSongTitles.add(songTitle);
+        originalPosition.add(count);
+        count++;
     }
 
     public SongListViewAdapter getThisItem(){
@@ -54,6 +70,10 @@ public class SongListViewAdapter extends BaseAdapter{
     @Override
     public Object getItem(int i) {
         return songTitles.get(i);
+    }
+
+    public int getIndex(String title){
+        return cloneSongTitles.indexOf(title);
     }
 
     @Override
@@ -85,5 +105,34 @@ public class SongListViewAdapter extends BaseAdapter{
         tvSongAlbum.setTypeface(varela);
 
         return view;
+    }
+
+    @Override
+    public Filter getFilter() {
+        Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results  = new FilterResults();
+                ArrayList<String> FilteredArrayNames = new ArrayList<String>();
+
+                constraint = constraint.toString().toLowerCase();
+                for (int i = 0; i < cloneSongTitles.size(); i++) {
+                    String title = cloneSongTitles.get(i);
+                    if (title.toLowerCase().startsWith(constraint.toString()))  {
+                        FilteredArrayNames.add(title);
+                    }
+                }
+                results.count = FilteredArrayNames.size();
+                results.values = FilteredArrayNames;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                songTitles = (ArrayList<String>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+        return filter;
     }
 }
