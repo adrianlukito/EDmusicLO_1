@@ -36,6 +36,17 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
 
         addNewPlayListLayout = (RelativeLayout) findViewById(R.id.addNewPlayListLayout);
         addNewPlayListLayout.setOnClickListener(this);
+
+        ListView playlistListView = (ListView) findViewById(R.id.playlistListView);
+
+        final PlaylistListViewAdapter playlistListViewAdapter = new PlaylistListViewAdapter(getApplicationContext());
+
+        playlistListViewAdapter.addPlaylist("K-POP","100 songs");
+        playlistListViewAdapter.addPlaylist("Instrumental","12 songs");
+        playlistListViewAdapter.addPlaylist("My Jam","25 songs");
+        playlistListViewAdapter.addPlaylist("Anime","14 songs");
+
+        playlistListView.setAdapter(playlistListViewAdapter);
     }
 
     @Override

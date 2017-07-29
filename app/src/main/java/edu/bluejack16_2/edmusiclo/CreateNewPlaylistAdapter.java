@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class CreateNewPlaylistAdapter extends BaseAdapter implements View.OnClic
 
     Drawable check, uncheck;
     int clickCount;
+
+    RelativeLayout songPlaylistLayout;
 
     Context context;
 
@@ -92,7 +95,15 @@ public class CreateNewPlaylistAdapter extends BaseAdapter implements View.OnClic
 
         final int index = i;
         playlistCheck = (Button) view.findViewById(R.id.playlistCheck);
+        songPlaylistLayout = (RelativeLayout) view.findViewById(R.id.songPlaylistLayout);
 
+        songPlaylistLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isChecked.set(index,!isChecked.get(index));
+                notifyDataSetChanged();
+            }
+        });
 
         playlistCheck.setOnClickListener(new View.OnClickListener() {
             @Override

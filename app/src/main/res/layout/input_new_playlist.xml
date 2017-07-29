@@ -15,14 +15,14 @@
                 android:layout_height="wrap_content"
                 android:text="Playlist Name"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/tvPlaylistName"
+                android:id="@+id/tvPlaylistNameTitle"
                 android:layout_marginTop="20dp"
                 android:textColor="#fff"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvPlaylistName"
+                android:layout_below="@id/tvPlaylistNameTitle"
                 android:id="@+id/inputPlaylistNameLayout"
                 android:paddingRight="40dp"
                 android:paddingLeft="40dp"

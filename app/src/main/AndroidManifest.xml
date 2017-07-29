@@ -36,7 +36,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".MusicActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ChangePasswordActivity" />
@@ -59,7 +59,8 @@
         <activity android:name=".TestActivity" />
         <activity android:name=".PlaylistActivity" />
         <activity android:name=".CreateNewPlaylistActivity" />
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".CommentActivity" />
+        <activity android:name=".PlaylistDetailActivity"></activity>
     </application>
 
 </manifest>
