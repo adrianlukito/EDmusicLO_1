@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -105,6 +106,7 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
         });
 
         playlistListView.setAdapter(playlistListViewAdapter);
+
 //        databaseReference.orderByChild("email").equalTo(session.getUser().getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
@@ -133,6 +135,13 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
 //            }
 //        });
 
+        playlistListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), PlaylistDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
