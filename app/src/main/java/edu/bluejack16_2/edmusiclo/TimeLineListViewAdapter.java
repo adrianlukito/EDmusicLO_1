@@ -105,6 +105,7 @@ public class TimeLineListViewAdapter extends BaseAdapter implements View.OnClick
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), CommentActivity.class);
+                intent.putExtra("keyTimeline", timeLineID.get(i));
                 view.getContext().startActivity(intent);
             }
         });

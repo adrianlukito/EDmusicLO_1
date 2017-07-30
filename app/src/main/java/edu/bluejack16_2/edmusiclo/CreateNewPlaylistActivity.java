@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -98,6 +99,8 @@ public class CreateNewPlaylistActivity extends AppCompatActivity implements View
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(inputNewPlaylistView);
 
+            final EditText newPlaylistName = (EditText) inputNewPlaylistView.findViewById(R.id.newPlaylistName);
+
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -107,9 +110,9 @@ public class CreateNewPlaylistActivity extends AppCompatActivity implements View
                         PlaylistSong playlistSong = new PlaylistSong();
                         Session session = new Session(getBaseContext());
                         playlistSong.setEmail(session.getUser().getEmail());
-                        playlistSong.setName(tvCreateNewPlaylistTitle.getText().toString());
+                        playlistSong.setName(newPlaylistName.getText().toString());
 
-                        Log.d("testa", isChecked.size()+"");
+                        Log.d("testa", newPlaylistName.getText().toString()+"");
                         for (int j = 0; j < isChecked.size(); j++) {
                             if (isChecked.get(j)) {
                                 cursor.moveToPosition(j);
@@ -117,6 +120,7 @@ public class CreateNewPlaylistActivity extends AppCompatActivity implements View
                             }
                         }
                         databaseReference.child(key).setValue(playlistSong);
+                        finish();
                     }catch (Exception e){
                         Log.d("testa", e.toString());
                     }

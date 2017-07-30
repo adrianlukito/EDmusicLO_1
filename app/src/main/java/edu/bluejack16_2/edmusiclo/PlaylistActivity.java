@@ -4,11 +4,25 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+
+import java.util.Vector;
+
+import edu.bluejack16_2.edmusiclo.model.Session;
 
 public class PlaylistActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -18,6 +32,10 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
 
     RelativeLayout addNewPlayListLayout;
 
+    DatabaseReference databaseReference;
+
+    Session session;
+    ListView playlistListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +55,84 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
         addNewPlayListLayout = (RelativeLayout) findViewById(R.id.addNewPlayListLayout);
         addNewPlayListLayout.setOnClickListener(this);
 
-        ListView playlistListView = (ListView) findViewById(R.id.playlistListView);
+        session = new Session(getBaseContext());
+
+        playlistListView = (ListView) findViewById(R.id.playlistListView);
 
         final PlaylistListViewAdapter playlistListViewAdapter = new PlaylistListViewAdapter(getApplicationContext());
 
-        playlistListViewAdapter.addPlaylist("K-POP","100 songs");
-        playlistListViewAdapter.addPlaylist("Instrumental","12 songs");
-        playlistListViewAdapter.addPlaylist("My Jam","25 songs");
-        playlistListViewAdapter.addPlaylist("Anime","14 songs");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Playlist");
+
+        databaseReference.orderByChild("email").equalTo(session.getUser().getEmail()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(dataSnapshot.child("idSongs").getValue().toString());
+                    Vector<String> songs = new Vector<String>();
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        songs.add(jsonArray.getString(i));
+                    }
+
+                    playlistListViewAdapter.addPlaylist(dataSnapshot.child("name").getValue().toString(), songs.size()+"");
+                }catch (Exception e) {
+                    Log.d("testa", e.toString());
+                }
+
+                playlistListView.setAdapter(playlistListViewAdapter);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         playlistListView.setAdapter(playlistListViewAdapter);
+//        databaseReference.orderByChild("email").equalTo(session.getUser().getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for(DataSnapshot childSnapshot : dataSnapshot.getChildren()){
+//                    try {
+//                        JSONArray jsonArray = new JSONArray(childSnapshot.child("idSongs").getValue().toString());
+//                        Vector<String> songs = new Vector<String>();
+//
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            songs.add(jsonArray.getString(i));
+//                        }
+//
+//                        playlistListViewAdapter.addPlaylist(childSnapshot.child("name").getValue().toString(), songs.size()+"");
+//                    }catch (Exception e) {
+//                        Log.d("testa", e.toString());
+//                    }
+//                }
+//                Log.d("testa", "terer");
+//                playlistListView.setAdapter(playlistListViewAdapter);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
     }
 
     @Override

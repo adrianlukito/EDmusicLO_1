@@ -76,7 +76,7 @@ public class TimeLineFragment extends Fragment {
                                 Log.d("errr", thisEmail);
                                 //if (thisEmail.equals(session.getUser().getEmail())) {
                                 FirebaseDatabase.getInstance().getReference().child("Timeline").orderByChild("user")
-                                        .equalTo(thisEmail).addListenerForSingleValueEvent(
+                                        .equalTo(thisEmail).addValueEventListener(
                                         new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -46,6 +46,7 @@
                     android:textSize="15dp"
                     android:background="@drawable/border_edittext_playlist"
                     android:focusableInTouchMode="true"
+                    android:id="@+id/newPlaylistName"
                     />
             </RelativeLayout>
     </RelativeLayout>
