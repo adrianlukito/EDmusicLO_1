@@ -1,9 +1,14 @@
 package edu.bluejack16_2.edmusiclo;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +42,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import edu.bluejack16_2.edmusiclo.model.Session;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText txtEmail, txtPassword;
@@ -57,10 +64,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private GoogleApiClient mGoogleApiClient;
 
+    Session session;
+    void Notification(){
+//        NotificationCompat.Builder mBuilder =
+//                new NotificationCompat.Builder(this)
+//                        .setSmallIcon(R.drawable.bruno_mars)
+//                        .setContentTitle("My notification")
+//                        .setContentText("Hello World!");
+//
+//        NotificationManager mNotificationManager =
+//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        mNotificationManager.notify(0, mBuilder.build());
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        Notification();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseAuth.signOut();
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
@@ -91,10 +115,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btnLogin.setOnClickListener(this);
         txtSignup.setOnClickListener(this);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        firebaseAuth.signOut();
+//
+//        firebaseAuth.signOut();
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override

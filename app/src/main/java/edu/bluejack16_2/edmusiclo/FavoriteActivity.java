@@ -137,7 +137,6 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                                     Intent intent = new Intent(FavoriteActivity.this, MusicActivity.class);
                                     intent.putExtra("position", MusicCursor.getInstance().musiccursor.getPosition());
                                     intent.putExtra("duration", SongFragment.mediaPlayer.getCurrentPosition());
-                                    //Toast.makeText(getContext(), SongFragment.mediaPlayer.getCurrentPosition()+"", Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                 }
                             });

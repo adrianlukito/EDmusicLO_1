@@ -57,6 +57,7 @@
             android:id="@+id/imgPlaylistPicture"/>
 
         <TextView
+            android:id="@+id/tvTotalSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="30 songs"
@@ -103,8 +104,8 @@
         android:id="@+id/playlistDetailListView"
         android:divider="@drawable/list_divider"
         android:dividerHeight="0.8dp"
-        android:layout_below="@id/playlistDetailButtonLayout"
-        >
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/playlistDetailButtonLayout">
     </ListView>
 
 </RelativeLayout>

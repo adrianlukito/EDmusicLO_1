@@ -60,7 +60,8 @@
         <activity android:name=".PlaylistActivity" />
         <activity android:name=".CreateNewPlaylistActivity" />
         <activity android:name=".CommentActivity" />
-        <activity android:name=".PlaylistDetailActivity"></activity>
+        <activity android:name=".PlaylistDetailActivity" />
+        <activity android:name=".NotificationActivity"></activity>
     </application>
 
 </manifest>

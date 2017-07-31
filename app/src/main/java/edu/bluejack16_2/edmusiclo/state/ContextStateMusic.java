@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
@@ -62,7 +63,9 @@ public class ContextStateMusic {
             try {
                 SongFragment.mediaPlayer.setDataSource(path);
                 SongFragment.mediaPlayer.prepare();
+                SongFragment.mediaPlayer.start();
         } catch (IOException e) {
+                Log.d("testa", e.toString());
             e.printStackTrace();
         }
         SongFragment.tvBottomSongTitle.setText(MusicCursor.getInstance().musiccursor.getString(6));

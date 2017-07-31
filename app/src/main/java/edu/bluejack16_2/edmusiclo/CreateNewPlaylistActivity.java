@@ -111,7 +111,7 @@ public class CreateNewPlaylistActivity extends AppCompatActivity implements View
                         Session session = new Session(getBaseContext());
                         playlistSong.setEmail(session.getUser().getEmail());
                         playlistSong.setName(newPlaylistName.getText().toString());
-
+                        playlistSong.setId(key);
                         Log.d("testa", newPlaylistName.getText().toString()+"");
                         for (int j = 0; j < isChecked.size(); j++) {
                             if (isChecked.get(j)) {
@@ -119,6 +119,9 @@ public class CreateNewPlaylistActivity extends AppCompatActivity implements View
                                 playlistSong.addIdSong(Integer.parseInt(cursor.getString(0)));
                             }
                         }
+
+
+
                         databaseReference.child(key).setValue(playlistSong);
                         finish();
                     }catch (Exception e){

@@ -1,9 +1,12 @@
 package edu.bluejack16_2.edmusiclo;
 
 
+import android.app.NotificationManager;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +48,7 @@ public class TimeLineFragment extends Fragment {
 
         final ListView timeLineListView = (ListView) view.findViewById(R.id.timelineListView);
 
-        final TimeLineListViewAdapter timeLineListViewAdapter = new TimeLineListViewAdapter(getContext());
+        final TimeLineListViewAdapter timeLineListViewAdapter = new TimeLineListViewAdapter(getContext(), this);
 
         bruno = getResources().getDrawable(R.drawable.bruno_mars);
 //        bts = getResources().getDrawable(R.drawable.wings);
@@ -112,5 +115,7 @@ public class TimeLineFragment extends Fragment {
         );
         return view;
     }
+
+
 
 }

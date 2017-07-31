@@ -1,11 +1,15 @@
 package edu.bluejack16_2.edmusiclo;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.icu.text.LocaleDisplayNames;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,13 +47,14 @@ public class TimeLineListViewAdapter extends BaseAdapter implements View.OnClick
     Button likeButton, commentButton;
 
     Context context;
+    Fragment fragment;
 
     DatabaseReference databaseReference;
 
     int index;
 
     Session session;
-    public TimeLineListViewAdapter(Context context) {
+    public TimeLineListViewAdapter(Context context, Fragment fragment) {
         timeLineProfilePictures = new ArrayList<Drawable>();
         timeLineProfileNames = new ArrayList<String>();
         timeLineCotents = new ArrayList<String>();
@@ -57,6 +62,7 @@ public class TimeLineListViewAdapter extends BaseAdapter implements View.OnClick
         this.context = context;
         databaseReference = FirebaseDatabase.getInstance().getReference("Timeline");
         session = new Session(context);
+        this.fragment = fragment;
     }
 
     public void addTimeLineList(Drawable timeLineProfilePicture, String timeLineProfileName, String timeLineCotent, String id){
@@ -132,8 +138,10 @@ public class TimeLineListViewAdapter extends BaseAdapter implements View.OnClick
                                     likes.add(session.getUser().getEmail());
                                 }
                                 childSnapshot.child("likes").getRef().setValue(likes);
+                                notification(childSnapshot.child("user").getValue().toString());
                             }catch (Exception e)
                             {
+                                Log.d("testa", e.toString());
 
                             }
                         }
@@ -158,6 +166,20 @@ public class TimeLineListViewAdapter extends BaseAdapter implements View.OnClick
             Toast.makeText(context, index+"", Toast.LENGTH_SHORT).show();
         }else if(v == commentButton){
 
+        }
+    }
+
+    void notification(String name){
+        try {
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.bruno_mars)
+                    .setContentTitle(name+ " have like your post")
+                    .setContentText("");
+
+            NotificationManager mNotificationManager = (NotificationManager) fragment.getActivity().getSystemService(context.NOTIFICATION_SERVICE);
+
+            mNotificationManager.notify(0, mBuilder.build());
+        }catch (Exception e){
         }
     }
 }

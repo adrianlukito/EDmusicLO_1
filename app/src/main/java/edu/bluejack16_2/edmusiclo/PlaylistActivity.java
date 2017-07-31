@@ -35,12 +35,16 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
 
     DatabaseReference databaseReference;
 
+    Vector<String> idSongs ;
+
     Session session;
     ListView playlistListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
+
+        idSongs = new Vector<String>();
 
         Typeface varela = Typeface.createFromAsset(getAssets(),"VarelaRound-Regular.ttf");
 
@@ -71,6 +75,7 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
                 try {
                     JSONArray jsonArray = new JSONArray(dataSnapshot.child("idSongs").getValue().toString());
                     Vector<String> songs = new Vector<String>();
+                    idSongs.add(dataSnapshot.child("id").getValue().toString());
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         songs.add(jsonArray.getString(i));
@@ -107,38 +112,11 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
 
         playlistListView.setAdapter(playlistListViewAdapter);
 
-//        databaseReference.orderByChild("email").equalTo(session.getUser().getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot childSnapshot : dataSnapshot.getChildren()){
-//                    try {
-//                        JSONArray jsonArray = new JSONArray(childSnapshot.child("idSongs").getValue().toString());
-//                        Vector<String> songs = new Vector<String>();
-//
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            songs.add(jsonArray.getString(i));
-//                        }
-//
-//                        playlistListViewAdapter.addPlaylist(childSnapshot.child("name").getValue().toString(), songs.size()+"");
-//                    }catch (Exception e) {
-//                        Log.d("testa", e.toString());
-//                    }
-//                }
-//                Log.d("testa", "terer");
-//                playlistListView.setAdapter(playlistListViewAdapter);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
         playlistListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), PlaylistDetailActivity.class);
+                intent.putExtra("key", idSongs.get(i));
                 startActivity(intent);
             }
         });

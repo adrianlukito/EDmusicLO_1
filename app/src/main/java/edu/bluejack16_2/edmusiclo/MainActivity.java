@@ -1,6 +1,9 @@
 package edu.bluejack16_2.edmusiclo;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -11,6 +14,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.SyncStateContract;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -68,17 +73,20 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
+
    public static void changeUserName(String name){
         txtuserProfileName.setText(name);
     }
 
     void initFirebase(){
         firebaseAuth = FirebaseAuth.getInstance();
+
+        try {
+
         databaseReference= FirebaseDatabase.getInstance().getReference("Users");
 
         session = new Session(getBaseContext());
-
-        try {
 
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
@@ -92,7 +100,6 @@ public class MainActivity extends AppCompatActivity
             //Toast.makeText(this, firebaseAuth.getCurrentUser().getProviderId(), Toast.LENGTH_SHORT).show();
 
             Log.d("asdf", firebaseAuth.getCurrentUser().getProviders().get(0));
-
 
             if(firebaseAuth.getCurrentUser().getProviders().get(0).equalsIgnoreCase("password")){
                 databaseReference.orderByChild("email").equalTo(email)

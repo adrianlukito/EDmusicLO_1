@@ -11,6 +11,15 @@ public class PlaylistSong {
     public String email;
     public String name;
     public Vector<Integer> idSongs;
+    public String id;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public  PlaylistSong (){
         idSongs = new Vector<Integer>();
